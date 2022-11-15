@@ -4,17 +4,19 @@ using System.Collections.Generic;
 
 public class Grid : MonoBehaviour {
 
+
 	public bool displayGridGizmos;
 	public LayerMask unwalkableMask;
-	public Vector2 gridWorldSize;
+	public Vector3 gridWorldSize;
 	public float nodeRadius;
 	public TerrainType[] walkableRegions;
 	public int obstacleProximityPenalty = 10;
 	Dictionary<int,int> walkableRegionsDictionary = new Dictionary<int, int>();
 	LayerMask walkableMask;
-	public GameObject tile;
-	public float porcentaje;
+	public Tile tile;
+	public GameObject tile_nonWalkable;
 	Node[,] grid;
+	public int probabilidad;
 
 	float nodeDiameter;
 	int gridSizeX, gridSizeY;
@@ -25,7 +27,7 @@ public class Grid : MonoBehaviour {
 	void Awake() {
 		nodeDiameter = nodeRadius*2;
 		gridSizeX = Mathf.RoundToInt(gridWorldSize.x/nodeDiameter);
-		gridSizeY = Mathf.RoundToInt(gridWorldSize.y/nodeDiameter);
+		gridSizeY = Mathf.RoundToInt(gridWorldSize.z/nodeDiameter);
 
 		//tile.gameObject.transform.localScale += new Vector3(gridSizeX, 0, gridSizeY);
 		
@@ -46,11 +48,11 @@ public class Grid : MonoBehaviour {
 
 	void CreateGrid() {
 		grid = new Node[gridSizeX,gridSizeY];
-		Vector3 worldBottomLeft = transform.position - Vector3.right * gridWorldSize.x/2 - Vector3.forward * gridWorldSize.y/2;
+		Vector3 worldBottomLeft = transform.position - Vector3.right * gridWorldSize.x/2 - new Vector3(0,1,0) * gridWorldSize.z/2;
 
 		for (int x = 0; x < gridSizeX; x ++) {
 			for (int y = 0; y < gridSizeY; y ++) {
-				Vector3 worldPoint = worldBottomLeft + Vector3.right * (x * nodeDiameter + nodeRadius) + Vector3.forward * (y * nodeDiameter + nodeRadius);
+				Vector3 worldPoint = worldBottomLeft + Vector3.right * (x * nodeDiameter + nodeRadius) + new Vector3(0, 1, 0) * (y * nodeDiameter + nodeRadius);
 				bool walkable = !(Physics.CheckSphere(worldPoint,nodeRadius,unwalkableMask));
 
 				int movementPenalty = 0;
@@ -71,11 +73,11 @@ public class Grid : MonoBehaviour {
 			}
 		}
 
-		BlurPenaltyMap (3);
+		//BlurPenaltyMap (3);
 
 	}
 
-	void BlurPenaltyMap(int blurSize) {
+	/*void BlurPenaltyMap(int blurSize) {
 		int kernelSize = blurSize * 2 + 1;
 		int kernelExtents = (kernelSize - 1) / 2;
 
@@ -123,6 +125,7 @@ public class Grid : MonoBehaviour {
 		}
 
 	}
+	*/
 
 	public List<Node> GetNeighbours(Node node) {
 		List<Node> neighbours = new List<Node>();
@@ -144,10 +147,40 @@ public class Grid : MonoBehaviour {
 		return neighbours;
 	}
 
+    public List<Node> GetNeighboursUnit(Node node, int max)
+    {
+        List<Node> neighbours = new List<Node>();
 
-	public Node NodeFromWorldPoint(Vector3 worldPosition) {
+        for (int x = -max; x <= max; x++)
+        {
+            for (int y = -max; y <= max; y++)
+            {
+                if (x == 0 && y == 0)
+                    continue;
+				else if (Mathf.Abs(x) == max && Mathf.Abs(y) == max)
+				{
+					continue;
+				}
+				else
+				{ 
+					int checkX = node.gridX + x;
+					int checkY = node.gridY + y;
+
+					if (checkX >= 0 && checkX < gridSizeX && checkY >= 0 && checkY < gridSizeY)
+					{
+						neighbours.Add(grid[checkX, checkY]);
+					}
+                }
+            }
+        }
+
+        return neighbours;
+    }
+
+
+    public Node NodeFromWorldPoint(Vector3 worldPosition) {
 		float percentX = (worldPosition.x + gridWorldSize.x/2) / gridWorldSize.x;
-		float percentY = (worldPosition.z + gridWorldSize.y/2) / gridWorldSize.y;
+		float percentY = (worldPosition.y + gridWorldSize.z/2) / gridWorldSize.z;
 		percentX = Mathf.Clamp01(percentX);
 		percentY = Mathf.Clamp01(percentY);
 
@@ -157,7 +190,7 @@ public class Grid : MonoBehaviour {
 	}
 
 	void OnDrawGizmos() {
-		Gizmos.DrawWireCube(transform.position,new Vector3(gridWorldSize.x,1,gridWorldSize.y));
+		Gizmos.DrawWireCube(transform.position,new Vector3(gridWorldSize.x, gridWorldSize.z, 0));
 		if (grid != null && displayGridGizmos) {
 			foreach (Node n in grid) {
 
@@ -170,21 +203,32 @@ public class Grid : MonoBehaviour {
 
 	public void drawGrid()
     {
-		GameObject tiles;
-		float scale = ((grid[1, 0].worldPosition.x - grid[0, 0].worldPosition.x) / 10) - (((grid[1, 0].worldPosition.x - grid[0, 0].worldPosition.x) / 10) * (porcentaje/100));
+		//Tile tiles;
+		float scale = ((grid[1, 0].worldPosition.x - grid[0, 0].worldPosition.x));
 		if (grid != null)
 		{
 			foreach (Node n in grid)
 			{
+				int i = Random.Range(0, probabilidad+1);
+				if (i == probabilidad)
+				{
+					n.walkable = false;
+				}
                 if (!n.walkable)
                 {
-					continue;
+                    var tiles = Instantiate(tile_nonWalkable, n.worldPosition, Quaternion.identity);
+                    tiles.gameObject.transform.localScale = new Vector3(scale, scale, scale);
+                    tiles.name = $"Tile {n.gridX} {n.gridY}";
                 }
                 else
                 {
-					tiles = Instantiate(tile, n.worldPosition , Quaternion.identity);
-					tiles.gameObject.transform.localScale = new Vector3(scale, 1, scale);
-				}
+					var tiles = Instantiate(tile, n.worldPosition , Quaternion.identity);
+					tiles.gameObject.transform.localScale = new Vector3(scale, scale, scale);
+                    tiles.name = $"Tile {n.gridX} {n.gridY}";
+
+                    var isOffset = (n.gridX % 2 == 0 && n.gridY % 2 != 0) || (n.gridX % 2 != 0 && n.gridY % 2 == 0);
+					tiles.Init(isOffset);
+                }
 			}
 		}
 	}
