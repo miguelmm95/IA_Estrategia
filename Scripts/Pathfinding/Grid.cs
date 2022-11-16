@@ -4,8 +4,9 @@ using System.Collections.Generic;
 
 public class Grid : MonoBehaviour {
 
+    [SerializeField] private Transform _cam;
 
-	public bool displayGridGizmos;
+    public bool displayGridGizmos;
 	public LayerMask unwalkableMask;
 	public Vector3 gridWorldSize;
 	public float nodeRadius;
@@ -231,7 +232,7 @@ public class Grid : MonoBehaviour {
                 }
 			}
 		}
-	}
+    }
 
 	[System.Serializable]
 	public class TerrainType {
