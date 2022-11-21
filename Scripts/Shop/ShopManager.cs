@@ -9,6 +9,8 @@ using System.Linq;
 public class ShopManager : MonoBehaviour
 {
 
+    [SerializeField] private GameObject _shopUI;
+
     public int[,] Items = new int[6, 6];
     public string[] ItemNames = new string[6];
     public float Money;
@@ -27,6 +29,21 @@ public class ShopManager : MonoBehaviour
         {"tank", 0 },
         {"ranged", 0 }
     };
+
+    void Awake()
+    {
+        GameManager.onGameStateChanged += GameManageronGameStateChanged;
+    }
+
+    void OnDestroy()
+    {
+        GameManager.onGameStateChanged -= GameManageronGameStateChanged;
+    }
+
+    private void GameManageronGameStateChanged(GameState state)
+    {
+        _shopUI.SetActive(state == GameState.PlayerShop);
+    }
 
     void Start()
     {

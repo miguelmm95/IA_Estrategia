@@ -26,7 +26,10 @@ public class Grid : MonoBehaviour {
 	int penaltyMax = int.MinValue;
 
 	void Awake() {
-		nodeDiameter = nodeRadius*2;
+
+        GameManager.onGameStateChanged += GameManagerOnGameStateChanged;
+
+        nodeDiameter = nodeRadius*2;
 		gridSizeX = Mathf.RoundToInt(gridWorldSize.x/nodeDiameter);
 		gridSizeY = Mathf.RoundToInt(gridWorldSize.z/nodeDiameter);
 
@@ -37,8 +40,18 @@ public class Grid : MonoBehaviour {
 			walkableRegionsDictionary.Add((int)Mathf.Log(region.terrainMask.value,2),region.terrainPenalty);
 		}
 
-		CreateGrid();
+        CreateGrid();
 		drawGrid();
+	}
+
+    void OnDestroy()
+    {
+        GameManager.onGameStateChanged -= GameManagerOnGameStateChanged;
+    }
+
+    private void GameManagerOnGameStateChanged(GameState state)
+	{
+
 	}
 
 	public int MaxSize {

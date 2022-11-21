@@ -6,13 +6,13 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
 
-    public static GameManager instance;
+    public static GameManager Instance;
     public GameState State;
     public static event Action<GameState> onGameStateChanged;
 
     void Awake()
     {
-        instance = this;
+        Instance = this;
     }
 
     void Start()
@@ -27,16 +27,22 @@ public class GameManager : MonoBehaviour
         switch (newState)
         {
             case GameState.PlayerShop:
+                HandlePlayerShop();
                 break;
-            case GameState.IAShop:
+            case GameState.GenerateGrid:
+                HandleGenerateGrid();
                 break;
             case GameState.PlayerTurn:
+                HandlePlayerTurn();
                 break;
             case GameState.AITurn:
+                HandleAITurn();
                 break;
             case GameState.Victory:
+                HandleVictory();
                 break;
             case GameState.Lose:
+                HandleLose();
                 break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(newState), newState, null);
@@ -44,12 +50,42 @@ public class GameManager : MonoBehaviour
 
         onGameStateChanged?.Invoke(newState);
     }
+
+    private void HandleLose()
+    {
+        
+    }
+
+    private void HandleVictory()
+    {
+        
+    }
+
+    private void HandleAITurn()
+    {
+        
+    }
+
+    private void HandlePlayerTurn()
+    {
+        
+    }
+
+    private void HandleGenerateGrid()
+    {
+        
+    }
+
+    private void HandlePlayerShop()
+    {
+
+    }
 }
 
 public enum GameState
 {
     PlayerShop,
-    IAShop,
+    GenerateGrid,
     PlayerTurn,
     AITurn,
     Victory,
