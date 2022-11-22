@@ -26,10 +26,7 @@ public class Grid : MonoBehaviour {
 	int penaltyMax = int.MinValue;
 
 	void Awake() {
-
-        GameManager.onGameStateChanged += GameManagerOnGameStateChanged;
-
-        nodeDiameter = nodeRadius*2;
+		nodeDiameter = nodeRadius*2;
 		gridSizeX = Mathf.RoundToInt(gridWorldSize.x/nodeDiameter);
 		gridSizeY = Mathf.RoundToInt(gridWorldSize.z/nodeDiameter);
 
@@ -40,18 +37,8 @@ public class Grid : MonoBehaviour {
 			walkableRegionsDictionary.Add((int)Mathf.Log(region.terrainMask.value,2),region.terrainPenalty);
 		}
 
-        CreateGrid();
+		CreateGrid();
 		drawGrid();
-	}
-
-    void OnDestroy()
-    {
-        GameManager.onGameStateChanged -= GameManagerOnGameStateChanged;
-    }
-
-    private void GameManagerOnGameStateChanged(GameState state)
-	{
-
 	}
 
 	public int MaxSize {
@@ -83,7 +70,7 @@ public class Grid : MonoBehaviour {
 				}
 
 
-				grid[x,y] = new Node(walkable,worldPoint, x,y, movementPenalty);
+				grid[x,y] = new Node(walkable,worldPoint, x,y);
 			}
 		}
 
@@ -205,12 +192,12 @@ public class Grid : MonoBehaviour {
 
 	void OnDrawGizmos() {
 		Gizmos.DrawWireCube(transform.position,new Vector3(gridWorldSize.x, gridWorldSize.z, 0));
-		if (grid != null && displayGridGizmos) {
-			foreach (Node n in grid) {
-
-				Gizmos.color = Color.Lerp (Color.white, Color.black, Mathf.InverseLerp (penaltyMin, penaltyMax, n.movementPenalty));
-				Gizmos.color = (n.walkable)?Gizmos.color:Color.red;
-				Gizmos.DrawCube(n.worldPosition, Vector3.one * (nodeDiameter));
+		if (grid != null && displayGridGizmos)
+		{
+			foreach (Node n in grid)
+			{
+				Gizmos.color = (n.walkable) ? Color.white : Color.red;
+				Gizmos.DrawCube(n.worldPosition, Vector3.one * (nodeDiameter - .1f));
 			}
 		}
 	}
@@ -236,7 +223,7 @@ public class Grid : MonoBehaviour {
                 }
                 else
                 {
-					var tiles = Instantiate(tile, n.worldPosition , Quaternion.identity);
+					var tiles = Instantiate(tile, n.worldPosition + new Vector3(0, 0, 2) , Quaternion.identity);
 					tiles.gameObject.transform.localScale = new Vector3(scale, scale, scale);
                     tiles.name = $"Tile {n.gridX} {n.gridY}";
 
