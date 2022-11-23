@@ -8,8 +8,8 @@ public class Tile : MonoBehaviour
     [SerializeField] private SpriteRenderer _renderer;
     [SerializeField] private GameObject _highlight;
     [SerializeField] private GameObject _unitColor;
-    [SerializeField] private int posX;
-    [SerializeField] private int posY;
+    [HideInInspector] public int posX;
+    [HideInInspector] public int posY;
     [HideInInspector] public bool unitStay = false;
     GameObject unit;
 

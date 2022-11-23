@@ -6,10 +6,10 @@ public class unitClick : MonoBehaviour
 {
     private GameObject unitGO;
     Tile tile;
-    
+    private bool click;
     void Start()
     {
-        
+        click = false;
     }
 
     // Update is called once per frame
@@ -25,30 +25,32 @@ public class unitClick : MonoBehaviour
                     hit.transform.gameObject.tag == "Ranged")
                 {
                     unitGO = hit.transform.gameObject;
+                    click = true;
                 }
 			}
 		}
 
-
-
-        switch (unitGO.tag)
+        if (click)
         {
-            case "Infantery":
-                var unitI = unitGO.GetComponent<infantry>();
-                Tile tile = unitI.tile.GetComponent<Tile>();
+            switch (unitGO.tag)
+            {
+                case "Infantery":
+                    var unitI = unitGO.GetComponent<infantry>();
+                    Tile tile = unitI.tile.GetComponent<Tile>();
 
-                break;
+                    break;
 
-            case "Tank":
-                var unitT = unitGO.GetComponent<heavy>();
-                break;
+                case "Tank":
+                    var unitT = unitGO.GetComponent<heavy>();
+                    break;
 
-            case "Ranged":
-                var unitR = unitGO.GetComponent<ranged>();
-                break;
+                case "Ranged":
+                    var unitR = unitGO.GetComponent<ranged>();
+                    break;
 
-            default:
-                break;
+                default:
+                    break;
+            }
         }
 
     }

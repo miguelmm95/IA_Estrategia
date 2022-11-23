@@ -151,9 +151,9 @@ public class Grid : MonoBehaviour {
 		return neighbours;
 	}
 
-    public List<Node> GetNeighboursUnit(Node node, int max)
+    public List<Tile> GetNeighboursUnit(Tile tile, int max)
     {
-        List<Node> neighbours = new List<Node>();
+        List<Tile> neighbours = new List<Tile>();
 
         for (int x = -max; x <= max; x++)
         {
@@ -167,12 +167,12 @@ public class Grid : MonoBehaviour {
 				}
 				else
 				{ 
-					int checkX = node.gridX + x;
-					int checkY = node.gridY + y;
+					int checkX = tile.posX + x;
+					int checkY = tile.posY + y;
 
 					if (checkX >= 0 && checkX < gridSizeX && checkY >= 0 && checkY < gridSizeY)
 					{
-						neighbours.Add(grid[checkX, checkY]);
+						neighbours.Add(gridTiles[checkX, checkY]);
 					}
                 }
             }
