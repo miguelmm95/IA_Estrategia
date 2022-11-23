@@ -30,7 +30,10 @@ public class GameManager : MonoBehaviour
                 HandlePlayerShop();
                 break;
             case GameState.GenerateGrid:
-                HandleGenerateGrid();
+                Grid.Instance.StartGrid();
+                break;
+            case GameState.SpawnAIUnits:
+
                 break;
             case GameState.PlayerTurn:
                 HandlePlayerTurn();
@@ -71,11 +74,6 @@ public class GameManager : MonoBehaviour
         
     }
 
-    private void HandleGenerateGrid()
-    {
-        
-    }
-
     private void HandlePlayerShop()
     {
 
@@ -86,6 +84,7 @@ public enum GameState
 {
     PlayerShop,
     GenerateGrid,
+    SpawnAIUnits,
     PlayerTurn,
     AITurn,
     Victory,

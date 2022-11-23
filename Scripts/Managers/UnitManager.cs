@@ -1,0 +1,28 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class UnitManager : MonoBehaviour
+{
+    public static UnitManager Instance;
+
+    public List<Unit> _playerUnits = new List<Unit>();
+    public List<Unit> _AIUnits = new List<Unit>();
+
+    private void Awake()
+    {
+        Instance = this;
+    }
+
+    public void SpawnAIUnitsRandom()
+    {
+        var AIUnits = _AIUnits.Count;
+
+        for(int i = 0; i < AIUnits; i++)
+        {
+            //Guardar el preab
+            //Inicializar la Unidad
+
+        }
+    }
+}

@@ -6,6 +6,8 @@ public class Grid : MonoBehaviour {
 
     [SerializeField] private Transform _cam;
 
+	public static Grid Instance;
+
     public bool displayGridGizmos;
 	public LayerMask unwalkableMask;
 	public Vector3 gridWorldSize;
@@ -27,6 +29,8 @@ public class Grid : MonoBehaviour {
 	int penaltyMax = int.MinValue;
 
 	void Awake() {
+		Instance = this;
+
 		nodeDiameter = nodeRadius*2;
 		gridSizeX = Mathf.RoundToInt(gridWorldSize.x/nodeDiameter);
 		gridSizeY = Mathf.RoundToInt(gridWorldSize.z/nodeDiameter);
@@ -37,10 +41,6 @@ public class Grid : MonoBehaviour {
 			walkableMask.value |= region.terrainMask.value;
 			walkableRegionsDictionary.Add((int)Mathf.Log(region.terrainMask.value,2),region.terrainPenalty);
 		}
-
-
-		CreateGrid();
-		drawGrid();
 	}
 
 	public int MaxSize {
@@ -48,6 +48,14 @@ public class Grid : MonoBehaviour {
 			return gridSizeX * gridSizeY;
 		}
 	}
+
+	public void StartGrid()
+	{
+        CreateGrid();
+        drawGrid();
+        Debug.Log(GetRandomAISpawnTile());
+        GameManager.Instance.UpdateGameState(GameState.SpawnAIUnits);
+    }
 
 	void CreateGrid() {
 		grid = new Node[gridSizeX,gridSizeY];
@@ -240,6 +248,29 @@ public class Grid : MonoBehaviour {
 			}
 		}
     }
+
+	public Tile GetRandomAISpawnTile()
+	{
+		var tile = new Tile();
+
+		while (true)
+		{
+            int indexX = Random.Range(0, gridSizeX - 1);
+            int indexY = Random.Range(0, gridSizeY - 1);
+
+			Debug.Log("Indice X: " + indexX);
+			Debug.Log("Indice Y: " + indexY);
+			Debug.Log("Tile: " + gridTiles[indexX, indexY]);
+
+            if (gridTiles[indexX, indexY].posX > gridSizeX / 2)
+            {
+                tile = gridTiles[indexX, indexY];
+				break;
+            }
+        }
+
+		return tile;
+	}
 
 	[System.Serializable]
 	public class TerrainType {
