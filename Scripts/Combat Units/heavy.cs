@@ -7,16 +7,26 @@ public class heavy : MonoBehaviour
     private int health = 500;
     private int speed = 15;
     private int attackRange = 5;
+    [HideInInspector] public int maxRange = 1;
+    [HideInInspector] public GameObject tile;
 
-    // Start is called before the first frame update
+
     void Start()
     {
         
     }
 
-    // Update is called once per frame
+
     void Update()
     {
         
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.tag == "Tile_Walkable")
+        {
+            tile = collision.gameObject;
+        }
     }
 }

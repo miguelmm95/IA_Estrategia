@@ -19,9 +19,9 @@ public class Unit : MonoBehaviour
     }
     void Update()
 	{
-        if (Input.GetMouseButtonDown(0))
-        {
-			
+		if (Input.GetMouseButtonDown(0))
+		{
+
 			if (click)
 			{
 				RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);

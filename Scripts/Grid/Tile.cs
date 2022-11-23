@@ -7,6 +7,13 @@ public class Tile : MonoBehaviour
     [SerializeField] private Color _baseColor, _offsetColor;
     [SerializeField] private SpriteRenderer _renderer;
     [SerializeField] private GameObject _highlight;
+    [SerializeField] private GameObject _unitColor;
+    [SerializeField] private int posX;
+    [SerializeField] private int posY;
+    [HideInInspector] public bool unitStay = false;
+    GameObject unit;
+
+   
 
     public void Init(bool isOffset)
     {
@@ -15,11 +22,26 @@ public class Tile : MonoBehaviour
 
     private void OnMouseEnter()
     {
-        _highlight.SetActive(true);
+        _highlight.SetActive(true); 
     }
 
     private void OnMouseExit()
     {
         _highlight.SetActive(false);
+    }
+
+    public void SetUnitHighlight()
+    {
+        _unitColor.SetActive(true);
+    }
+
+    public void DisableUnitHighlight()
+    {
+        _unitColor.SetActive(false);
+    }
+    public void SetCoord(int x, int y)
+    {
+        posX = x;
+        posY = y;
     }
 }

@@ -14,9 +14,10 @@ public class Grid : MonoBehaviour {
 	public int obstacleProximityPenalty = 10;
 	Dictionary<int,int> walkableRegionsDictionary = new Dictionary<int, int>();
 	LayerMask walkableMask;
-	public Tile tile;
+	public GameObject prefabTile;
 	public GameObject tile_nonWalkable;
 	Node[,] grid;
+	Tile[,] gridTiles;
 	public int probabilidad;
 
 	float nodeDiameter;
@@ -37,6 +38,7 @@ public class Grid : MonoBehaviour {
 			walkableRegionsDictionary.Add((int)Mathf.Log(region.terrainMask.value,2),region.terrainPenalty);
 		}
 
+
 		CreateGrid();
 		drawGrid();
 	}
@@ -49,6 +51,7 @@ public class Grid : MonoBehaviour {
 
 	void CreateGrid() {
 		grid = new Node[gridSizeX,gridSizeY];
+		gridTiles = new Tile[gridSizeX, gridSizeY];
 		Vector3 worldBottomLeft = transform.position - Vector3.right * gridWorldSize.x/2 - new Vector3(0,1,0) * gridWorldSize.z/2;
 
 		for (int x = 0; x < gridSizeX; x ++) {
@@ -219,16 +222,20 @@ public class Grid : MonoBehaviour {
                 {
                     var tiles = Instantiate(tile_nonWalkable, n.worldPosition, Quaternion.identity);
                     tiles.gameObject.transform.localScale = new Vector3(scale, scale, scale);
-                    tiles.name = $"Tile {n.gridX} {n.gridY}";
+					gridTiles[n.gridX, n.gridY] = null;
+					tiles.name = $"Tile {n.gridX} {n.gridY}";
                 }
                 else
                 {
-					var tiles = Instantiate(tile, n.worldPosition + new Vector3(0, 0, 2) , Quaternion.identity);
+					var tiles = Instantiate(prefabTile, n.worldPosition + new Vector3(0, 0, 2) , Quaternion.identity);
 					tiles.gameObject.transform.localScale = new Vector3(scale, scale, scale);
-                    tiles.name = $"Tile {n.gridX} {n.gridY}";
+					Tile tile = tiles.GetComponent<Tile>(); 
+                    tile.name = $"Tile {n.gridX} {n.gridY}";
+					tile.SetCoord(n.gridX, n.gridY);
+					gridTiles[n.gridX, n.gridY] = tile;
 
-                    var isOffset = (n.gridX % 2 == 0 && n.gridY % 2 != 0) || (n.gridX % 2 != 0 && n.gridY % 2 == 0);
-					tiles.Init(isOffset);
+					var isOffset = (n.gridX % 2 == 0 && n.gridY % 2 != 0) || (n.gridX % 2 != 0 && n.gridY % 2 == 0);
+					tile.Init(isOffset);
                 }
 			}
 		}
