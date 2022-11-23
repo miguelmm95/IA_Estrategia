@@ -19,7 +19,7 @@ public class Grid : MonoBehaviour {
 	public GameObject prefabTile;
 	public GameObject tile_nonWalkable;
 	Node[,] grid;
-	Tile[,] gridTiles;
+	[HideInInspector] public Tile[,] gridTiles;
 	public int probabilidad;
 
 	float nodeDiameter;
