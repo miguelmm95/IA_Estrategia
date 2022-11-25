@@ -53,7 +53,7 @@ public class Grid : MonoBehaviour {
 	{
         CreateGrid();
         drawGrid();
-        Debug.Log(GetRandomAISpawnTile());
+        //Debug.Log(GetRandomAISpawnTile());
         GameManager.Instance.UpdateGameState(GameState.SpawnAIUnits);
     }
 
@@ -258,9 +258,9 @@ public class Grid : MonoBehaviour {
             int indexX = Random.Range(0, gridSizeX - 1);
             int indexY = Random.Range(0, gridSizeY - 1);
 
-			Debug.Log("Indice X: " + indexX);
+			/*Debug.Log("Indice X: " + indexX);
 			Debug.Log("Indice Y: " + indexY);
-			Debug.Log("Tile: " + gridTiles[indexX, indexY]);
+			Debug.Log("Tile: " + gridTiles[indexX, indexY]);*/
 
             if (gridTiles[indexX, indexY].posX > gridSizeX / 2)
             {

@@ -20,9 +20,11 @@ public class UnitManager : MonoBehaviour
 
         for(int i = 0; i < AIUnits; i++)
         {
-            //Guardar el preab
-            //Inicializar la Unidad
+            //Prefab
+            //Instanciar la Unidad
+            //Obtener una Tile aleatoria
 
+            //Colocar la unidad en la Tile y decir que la tile esta ocupada.
         }
     }
 }
