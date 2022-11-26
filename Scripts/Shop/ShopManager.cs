@@ -17,6 +17,15 @@ public class ShopManager : MonoBehaviour
     public TMP_Text MoneyTxt;
     public TMP_Text ElementQ;
     int tempID;
+    public string Last;
+    int r;
+    public string[] UnitList = { "melee", "tank", "ranged" };
+    public int AIMoney;
+    public int Round;
+    public List<string> playerList;
+    public List<string> AIList;
+
+
     public Dictionary<string, int> Elements = new Dictionary<string, int>()
     {
         {"melee", 1 },
@@ -47,6 +56,8 @@ public class ShopManager : MonoBehaviour
 
     void Start()
     {
+        Round = 0;
+        r = Random.Range(0, 2);
         MoneyTxt.text = "Money: " + Money.ToString();
         for (int i = 1; i < 6; i++)
         {
@@ -66,8 +77,13 @@ public class ShopManager : MonoBehaviour
         if (Money >= Items[2, ButtonRef.GetComponent<button>().ID])
         {
             Money -= Items[2, ButtonRef.GetComponent<button>().ID];
-            MoneyTxt.text = Money.ToString();
+            MoneyTxt.text = "Money: " + Money.ToString();
             Quantity[ItemNames[ButtonRef.GetComponent<button>().ID]] += 1;
+            Last = ItemNames[ButtonRef.GetComponent<button>().ID];
+            Debug.Log(Last);
+            UnitManager._playerUnits.Add(Last);
+            Round++;
+            IAShop(Last, r);
             UpdateShop(ButtonRef.GetComponent<button>().ID);
         }
     }
@@ -82,5 +98,38 @@ public class ShopManager : MonoBehaviour
     public void Update()
     {
         ElementQ.text = "Melee: " + Quantity["melee"] + "\n" + "Tank: " + Quantity["tank"] + "\n" + "Ranged: " + Quantity["ranged"];
+        if (Round % 5 == 0)
+        {
+            r = Random.Range(0, 2);
+        }
+    }
+
+    public void IAShop(string playerLast, int r)
+    {
+        if (r == 0)
+        {
+            string rUnit = UnitList[Random.Range(0, UnitList.Length)];
+            UnitManager._AIUnits.Add(rUnit);
+            AIMoney -= Elements[rUnit];
+        }
+        else
+        {
+            switch (playerLast)
+            {
+                case "melee":
+                    UnitManager._AIUnits.Add("ranged");
+                    AIMoney -= Elements["ranged"];
+                    break;
+                case "tank":
+                    UnitManager._AIUnits.Add("melee");
+                    AIMoney -= Elements["melee"];
+                    break;
+                default:
+                    UnitManager._AIUnits.Add("tank");
+                    AIMoney -= Elements["tank"];
+                    break;
+            }
+        }
+        Debug.Log(UnitManager._AIUnits.Count);
     }
 }

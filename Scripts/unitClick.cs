@@ -150,6 +150,7 @@ public class unitClick : MonoBehaviour
                 default:
                     break;
             }
+            click = false;
         }
 
     }

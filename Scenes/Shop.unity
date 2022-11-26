@@ -2878,6 +2878,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c03fcf557517cca45859747e952d31c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _shopUI: {fileID: 0}
   ItemNames:
   - 
   - 
@@ -2888,6 +2889,15 @@ MonoBehaviour:
   Money: 100
   MoneyTxt: {fileID: 310535711}
   ElementQ: {fileID: 870479243}
+  Last: 
+  UnitList:
+  - melee
+  - tank
+  - ranged
+  AIMoney: 0
+  Round: 0
+  playerList: []
+  AIList: []
 --- !u!4 &1994310743
 Transform:
   m_ObjectHideFlags: 0

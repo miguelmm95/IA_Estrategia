@@ -262,7 +262,7 @@ public class Grid : MonoBehaviour {
 			Debug.Log("Indice Y: " + indexY);
 			Debug.Log("Tile: " + gridTiles[indexX, indexY]);*/
 
-            if (gridTiles[indexX, indexY].posX > gridSizeX / 2)
+            if (gridTiles[indexX, indexY].posX > gridSizeX / 2 && gridTiles[indexX, indexY].tag == "Tile_Walkable")
             {
                 tile = gridTiles[indexX, indexY];
 				break;

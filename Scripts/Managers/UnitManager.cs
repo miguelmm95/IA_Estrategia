@@ -6,8 +6,8 @@ public class UnitManager : MonoBehaviour
 {
     public static UnitManager Instance;
 
-    public List<Unit> _playerUnits = new List<Unit>();
-    public List<Unit> _AIUnits = new List<Unit>();
+    public static List<string> _playerUnits = new List<string>();
+    public static List<string> _AIUnits = new List<string>();
 
     private void Awake()
     {
