@@ -11,6 +11,9 @@ public class Tile : MonoBehaviour
     [HideInInspector] public int posX;
     [HideInInspector] public int posY;
     [HideInInspector] public bool unitStay = false;
+
+    public bool unitCanMoveTo = false;
+
     GameObject unit;
 
    

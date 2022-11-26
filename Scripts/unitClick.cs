@@ -46,8 +46,8 @@ public class unitClick : MonoBehaviour
                         }
                         else
                         {
-                            //Debug.Log(n);
                             n.DisableUnitHighlight();
+                            n.unitCanMoveTo = false;
                         }
                     }
                 }
@@ -73,6 +73,7 @@ public class unitClick : MonoBehaviour
                         else
                         {
                             n.DisableUnitHighlight();
+                            n.unitCanMoveTo = false;
                         }
                     }
                     foreach (Tile n in neighbours)
@@ -84,6 +85,7 @@ public class unitClick : MonoBehaviour
                         else
                         {
                             n.SetUnitHighlight();
+                            n.unitCanMoveTo = true;
                         }
                     }
                     neighbours1 = neighbours;
@@ -102,6 +104,7 @@ public class unitClick : MonoBehaviour
                         else
                         {
                             n.DisableUnitHighlight();
+                            n.unitCanMoveTo = false;
                         }
                     }
                     foreach (Tile n in neighbours)
@@ -113,6 +116,7 @@ public class unitClick : MonoBehaviour
                         else
                         {
                             n.SetUnitHighlight();
+                            n.unitCanMoveTo = true;
                         }
                     }
                     neighbours1 = neighbours;
@@ -131,6 +135,7 @@ public class unitClick : MonoBehaviour
                         else
                         {
                             n.DisableUnitHighlight();
+                            n.unitCanMoveTo = false;
                         }
                     }
                     foreach (Tile n in neighbours)
@@ -142,6 +147,7 @@ public class unitClick : MonoBehaviour
                         else
                         {
                             n.SetUnitHighlight();
+                            n.unitCanMoveTo = true;
                         }
                     }
                     neighbours1 = neighbours;
