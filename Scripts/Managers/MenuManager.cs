@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class MenuManager : MonoBehaviour
 {
-    [SerializeField] private GameObject _testButton;
+    [SerializeField] private GameObject _ShopUI;
     [SerializeField] private GameObject _aEstrella;
 
     void Awake()
@@ -20,7 +20,7 @@ public class MenuManager : MonoBehaviour
 
     private void GameManagerOnGameStateChanged(GameState state)
     {
-        _testButton.SetActive(state == GameState.PlayerShop);
+        _ShopUI.SetActive(state == GameState.PlayerShop);
         _aEstrella.SetActive(state == GameState.GenerateGrid);
     }
 }
