@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 8184171559185275752}
   - component: {fileID: 8184171559185275755}
+  - component: {fileID: 8128589030730444387}
   - component: {fileID: 8184171559185275758}
   - component: {fileID: 8184171559185275759}
-  - component: {fileID: 8184171559185275756}
   m_Layer: 0
   m_Name: Ranged
   m_TagString: Ranged
@@ -84,9 +84,23 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &8128589030730444387
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8184171559185275754}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb3601261979bf24aa6281c62bb17fc3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxRange: 3
+  tile: {fileID: 0}
 --- !u!61 &8184171559185275758
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -134,17 +148,3 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &8184171559185275756
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8184171559185275754}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2db3ea626ce189e4e8ecf83299e54f29, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxRange: 3
-  tile: {fileID: 0}

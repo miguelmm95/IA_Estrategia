@@ -9,6 +9,10 @@ public class UnitManager : MonoBehaviour
     public static List<string> _playerUnits = new List<string>();
     public static List<string> _AIUnits = new List<string>();
 
+    public GameObject meleeUnit;
+    public GameObject tankUnit;
+    public GameObject rangedUnit;
+
     private void Awake()
     {
         Instance = this;
@@ -20,11 +24,30 @@ public class UnitManager : MonoBehaviour
 
         for(int i = 0; i < AIUnits; i++)
         {
-            //Prefab
-            //Instanciar la Unidad
-            //Obtener una Tile aleatoria
+            switch(_AIUnits[i]){
+                case "melee":
+                    var melee = Instantiate(meleeUnit);
+                    var spawnTileMelee = Grid.Instance.GetRandomAISpawnTile();
+                    melee.transform.position = spawnTileMelee.transform.position;
+                    spawnTileMelee.unit = melee;
+                    break;
 
-            //Colocar la unidad en la Tile y decir que la tile esta ocupada.
+                case "tank":
+                    var tank = Instantiate(tankUnit);
+                    var spawnTileTank = Grid.Instance.GetRandomAISpawnTile();
+                    tank.transform.position = spawnTileTank.transform.position;
+                    spawnTileTank.unit = tank;
+                    break;
+
+                case "ranged":
+                    var ranged = Instantiate(rangedUnit);
+                    var spawnTileRanged = Grid.Instance.GetRandomAISpawnTile();
+                    ranged.transform.position = spawnTileRanged.transform.position;
+                    spawnTileRanged.unit = ranged;
+                    break;
+            }
         }
+
+        GameManager.Instance.UpdateGameState(GameState.PlayerTurn);
     }
 }

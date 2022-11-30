@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 345856501472425260}
   - component: {fileID: 345856501472425261}
+  - component: {fileID: 4242970140085322717}
   - component: {fileID: 345856501472425257}
   - component: {fileID: 345856501472425258}
-  - component: {fileID: 345856501472425259}
   m_Layer: 0
   m_Name: Infantry
   m_TagString: Infantery
@@ -87,6 +87,20 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &4242970140085322717
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 345856501472425262}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52a644dfa43cc5347a327bcf5f6197b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxRange: 2
+  tile: {fileID: 0}
 --- !u!61 &345856501472425257
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -134,17 +148,3 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &345856501472425259
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 345856501472425262}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4989adf5d9179d041bc9c1469eea233c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxRange: 2
-  tile: {fileID: 0}

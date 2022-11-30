@@ -2256,6 +2256,53 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1011753283}
   m_CullTransparentMesh: 1
+--- !u!1 &1195703327
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1195703329}
+  - component: {fileID: 1195703328}
+  m_Layer: 0
+  m_Name: UnitManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1195703328
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1195703327}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44f33b1dbf77fe440af5fe19a27ec0f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  meleeUnit: {fileID: 345856501472425262, guid: 3cd02bedf8aa4ef44a8d08553269b1d9, type: 3}
+  tankUnit: {fileID: 4979832330068687696, guid: 99a4f9460d1a51747bc134a63ba729e8, type: 3}
+  rangedUnit: {fileID: 8184171559185275754, guid: 5db863c290598e74aba1d39642436adc, type: 3}
+--- !u!4 &1195703329
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1195703327}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 5.0157638, y: -0.9935212, z: -0.08455464}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1240135251
 GameObject:
   m_ObjectHideFlags: 0

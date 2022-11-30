@@ -33,6 +33,7 @@ public class unitClick : MonoBehaviour
                     hit.transform.gameObject.tag == "Tank" || 
                     hit.transform.gameObject.tag == "Ranged")
                 {
+                    Debug.Log("e");
                     unitGO = hit.transform.gameObject;
                     click = true;
                 }

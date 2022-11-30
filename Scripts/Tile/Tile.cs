@@ -14,7 +14,8 @@ public class Tile : MonoBehaviour
 
     public bool unitCanMoveTo = false;
 
-    GameObject unit;
+    public GameObject unit;
+    public BaseUnit occupiedUnit;
 
    
 
@@ -36,6 +37,15 @@ public class Tile : MonoBehaviour
     public void SetUnitHighlight()
     {
         _unitColor.SetActive(true);
+    }
+
+    public void OnMouseDown(){
+        if(GameManager.Instance.State != GameState.PlayerTurn) return;
+        if(occupiedUnit != null){
+            if(occupiedUnit.player == Player.Human){
+                Debug.Log("E");
+            }
+        }
     }
 
     public void DisableUnitHighlight()

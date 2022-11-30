@@ -98,17 +98,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 353268147552342901}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7f0732e3acd227647950e1b2df2f5682, type: 3}
+  m_Script: {fileID: 11500000, guid: 8a1cc126853f83d4fb9765c1171ac653, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _baseColor: {r: 0.41598436, g: 0.7169812, b: 0.4276736, a: 1}
-  _offsetColor: {r: 0.37767, g: 0.6509434, b: 0.38890043, a: 1}
+  _baseColor: {r: 0.41568628, g: 0.7176471, b: 0.42745098, a: 1}
+  _offsetColor: {r: 0.3764706, g: 0.6509804, b: 0.3882353, a: 1}
   _renderer: {fileID: 6280517231281818190}
   _highlight: {fileID: 5417462311301544100}
   _unitColor: {fileID: 3379274326104649009}
   posX: 0
   posY: 0
   unitStay: 0
+  unitCanMoveTo: 0
+  unit: {fileID: 0}
 --- !u!61 &6194285364850258493
 BoxCollider2D:
   m_ObjectHideFlags: 0

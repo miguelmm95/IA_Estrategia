@@ -22,5 +22,7 @@ public class MenuManager : MonoBehaviour
     {
         _ShopUI.SetActive(state == GameState.PlayerShop);
         _aEstrella.SetActive(state == GameState.GenerateGrid);
+        _aEstrella.SetActive(state == GameState.SpawnAIUnits);
+        _aEstrella.SetActive(state == GameState.PlayerTurn);
     }
 }

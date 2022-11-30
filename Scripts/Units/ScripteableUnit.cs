@@ -8,6 +8,7 @@ public class ScripteableUnit : ScriptableObject
 {
     public Type type;
     public Player player;
+    public BaseUnit unitPrefab;
 }
 
 public enum Type

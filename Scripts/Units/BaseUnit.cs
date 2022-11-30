@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class BaseUnit : MonoBehaviour
 {
+    public Tile occupiedTile;
+    public Player player;
     // Start is called before the first frame update
     void Start()
     {
