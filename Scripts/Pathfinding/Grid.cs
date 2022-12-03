@@ -22,6 +22,9 @@ public class Grid : MonoBehaviour {
 	[HideInInspector] public Tile[,] gridTiles;
 	public int probabilidad;
 
+	private int contBanIA = 0;
+	private int contBanJug = 0;
+
 	float nodeDiameter;
 	int gridSizeX, gridSizeY;
 
@@ -189,8 +192,33 @@ public class Grid : MonoBehaviour {
         return neighbours;
     }
 
+	public List<Tile> GetNeighboursUnit(Tile tile)
+	{
+		List<Tile> neighbours = new List<Tile>();
 
-    public Node NodeFromWorldPoint(Vector3 worldPosition) {
+		for (int x = -1; x <= 1; x++)
+		{
+			for (int y = -1; y <= 1; y++)
+			{
+				if (x == 0 && y == 0)
+					continue;
+				else
+				{
+					int checkX = tile.posX + x;
+					int checkY = tile.posY + y;
+
+					if (checkX >= 0 && checkX < gridSizeX && checkY >= 0 && checkY < gridSizeY)
+					{
+						neighbours.Add(gridTiles[checkX, checkY]);
+					}
+				}
+			}
+		}
+
+		return neighbours;
+	}
+
+	public Node NodeFromWorldPoint(Vector3 worldPosition) {
 		float percentX = (worldPosition.x + gridWorldSize.x/2) / gridWorldSize.x;
 		float percentY = (worldPosition.y + gridWorldSize.z/2) / gridWorldSize.z;
 		percentX = Mathf.Clamp01(percentX);
@@ -241,9 +269,23 @@ public class Grid : MonoBehaviour {
                     tile.name = $"Tile {n.gridX} {n.gridY}";
 					tile.SetCoord(n.gridX, n.gridY);
 					gridTiles[n.gridX, n.gridY] = tile;
-
+					
 					var isOffset = (n.gridX % 2 == 0 && n.gridY % 2 != 0) || (n.gridX % 2 != 0 && n.gridY % 2 == 0);
 					tile.Init(isOffset);
+
+					float gridFloat = (float)n.gridX;
+					float gridSizeFloat = (float)gridSizeX;
+					Debug.Log(gridFloat / gridSizeFloat);
+					if (gridFloat/gridSizeFloat < 0.3 && Random.Range(0, 30) == 0 && contBanJug < 3)
+                    {
+						tile.SetBanderaJugador();
+						contBanJug++;
+                    }
+                    else if (gridFloat / gridSizeFloat > 0.7 && Random.Range(0, 30) == 0 && contBanIA < 3)
+                    {
+						tile.SetBanderaIA();
+						contBanIA++;
+                    }
                 }
 			}
 		}
