@@ -3,7 +3,10 @@ guid: 44f33b1dbf77fe440af5fe19a27ec0f9
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - meleeAI: {fileID: 345856501472425262, guid: 3cd02bedf8aa4ef44a8d08553269b1d9, type: 3}
+  - tankAI: {fileID: 4979832330068687696, guid: 99a4f9460d1a51747bc134a63ba729e8, type: 3}
+  - rangedAI: {fileID: 8184171559185275754, guid: 5db863c290598e74aba1d39642436adc, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

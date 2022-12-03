@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e6501c9cc31aeaf448b215b9d50bd3f9, type: 3}
-  m_Name: Ranged Unit
+  m_Name: HeavyHuman
   m_EditorClassIdentifier: 
-  type: 2
+  type: 0
   player: 0
-  unitPrefab: {fileID: 8128589030730444387, guid: 5db863c290598e74aba1d39642436adc, type: 3}
+  unitPrefab: {fileID: -7040980637206130413, guid: d98e3fc52a19f77499267068ff99e2ce, type: 3}

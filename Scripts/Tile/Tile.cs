@@ -13,8 +13,8 @@ public class Tile : MonoBehaviour
     [HideInInspector] public bool unitStay = false;
 
     public bool unitCanMoveTo = false;
+    public bool isWalkeable;
 
-    public GameObject unit;
     public BaseUnit occupiedUnit;
 
    
@@ -43,7 +43,16 @@ public class Tile : MonoBehaviour
         if(GameManager.Instance.State != GameState.PlayerTurn) return;
         if(occupiedUnit != null){
             if(occupiedUnit.player == Player.Human){
-                Debug.Log("E");
+                UnitManager.Instance.SelectedHero((BaseHumanUnit)occupiedUnit);
+                Debug.Log(occupiedUnit);
+            }
+            else
+            {
+                if(UnitManager.Instance.selectedHumanUnit != null)
+                {
+                    //Ataque
+                    Debug.Log("HIT");
+                }
             }
         }
     }

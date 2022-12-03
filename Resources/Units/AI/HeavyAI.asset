@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e6501c9cc31aeaf448b215b9d50bd3f9, type: 3}
-  m_Name: Infantry Unit
+  m_Name: HeavyAI
   m_EditorClassIdentifier: 
-  type: 1
-  player: 0
-  unitPrefab: {fileID: 4242970140085322717, guid: 3cd02bedf8aa4ef44a8d08553269b1d9, type: 3}
+  type: 0
+  player: 1
+  unitPrefab: {fileID: -2496576109656874225, guid: 99a4f9460d1a51747bc134a63ba729e8, type: 3}

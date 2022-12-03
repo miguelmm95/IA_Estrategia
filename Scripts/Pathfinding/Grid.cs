@@ -230,9 +230,13 @@ public class Grid : MonoBehaviour {
                 {
                     var tiles = Instantiate(tile_nonWalkable, n.worldPosition, Quaternion.identity);
                     tiles.gameObject.transform.localScale = new Vector3(scale, scale, scale);
+					Tile tile = tiles.GetComponent<Tile>();
 					gridTiles[n.gridX, n.gridY] = null;
-					tiles.name = $"Tile {n.gridX} {n.gridY}";
-                }
+					tile.SetCoord(n.gridX, n.gridY);
+					tile.name = $"Tile {n.gridX} {n.gridY}";
+					tile.isWalkeable = false;
+					gridTiles[n.gridX, n.gridY] = tile;
+				}
                 else
                 {
 					var tiles = Instantiate(prefabTile, n.worldPosition + new Vector3(0, 0, 2) , Quaternion.identity);
@@ -240,6 +244,7 @@ public class Grid : MonoBehaviour {
 					Tile tile = tiles.GetComponent<Tile>(); 
                     tile.name = $"Tile {n.gridX} {n.gridY}";
 					tile.SetCoord(n.gridX, n.gridY);
+					tile.isWalkeable = true;
 					gridTiles[n.gridX, n.gridY] = tile;
 
 					var isOffset = (n.gridX % 2 == 0 && n.gridY % 2 != 0) || (n.gridX % 2 != 0 && n.gridY % 2 == 0);
@@ -255,14 +260,10 @@ public class Grid : MonoBehaviour {
 
 		while (true)
 		{
-            int indexX = Random.Range(0, gridSizeX - 1);
-            int indexY = Random.Range(0, gridSizeY - 1);
+            int indexX = Random.Range(gridSizeX / 2, gridSizeX);
+            int indexY = Random.Range(0, gridSizeY);
 
-			/*Debug.Log("Indice X: " + indexX);
-			Debug.Log("Indice Y: " + indexY);
-			Debug.Log("Tile: " + gridTiles[indexX, indexY]);*/
-
-            if (gridTiles[indexX, indexY].posX > gridSizeX / 2 && gridTiles[indexX, indexY].tag == "Tile_Walkable")
+            if (gridTiles[indexX, indexY].isWalkeable && gridTiles[indexX, indexY].occupiedUnit == null)
             {
                 tile = gridTiles[indexX, indexY];
 				break;
@@ -271,6 +272,25 @@ public class Grid : MonoBehaviour {
 
 		return tile;
 	}
+
+	public Tile GetRandomHumanSpawnTile()
+    {
+		var tile = new Tile();
+
+        while (true)
+        {
+			int indexX = Random.Range(0, gridSizeX / 2);
+			int indexY = Random.Range(0, gridSizeY - 1);
+
+			if(gridTiles[indexX, indexY].isWalkeable && gridTiles[indexX, indexY].occupiedUnit == null)
+            {
+				tile = gridTiles[indexX, indexY];
+				break;
+            }
+		}
+
+		return tile;
+    }
 
 	[System.Serializable]
 	public class TerrainType {

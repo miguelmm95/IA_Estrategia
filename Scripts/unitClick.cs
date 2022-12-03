@@ -57,7 +57,7 @@ public class unitClick : MonoBehaviour
 			}
 		}
 
-        if (click)
+        /*if (click)
         {
             switch (unitGO.tag)
             {
@@ -158,7 +158,7 @@ public class unitClick : MonoBehaviour
                     break;
             }
             click = false;
-        }
+        }*/
 
     }
 }
