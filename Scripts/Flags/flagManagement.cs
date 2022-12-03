@@ -25,7 +25,7 @@ public class flagManagement : MonoBehaviour
         {
             if (n.unitStay)
             {
-                unit = n.unit.GetComponent<BaseUnit>();
+                unit = n.occupiedUnit;
                 break;
             }
             else

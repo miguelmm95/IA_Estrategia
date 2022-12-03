@@ -44,7 +44,7 @@ public class Tile : MonoBehaviour
 
     private void Update()
     {
-        if (unit != null)
+        if (occupiedUnit != null)
         {
             unitStay = true;
         }
