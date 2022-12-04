@@ -2616,12 +2616,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44f33b1dbf77fe440af5fe19a27ec0f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  meleeAI: {fileID: 603183673745925156, guid: 3cd02bedf8aa4ef44a8d08553269b1d9, type: 3}
-  tankAI: {fileID: -2496576109656874225, guid: 99a4f9460d1a51747bc134a63ba729e8, type: 3}
-  rangedAI: {fileID: 8562554816016724707, guid: 5db863c290598e74aba1d39642436adc, type: 3}
-  meleeHuman: {fileID: 4813957937931719755, guid: 098d46848c9054d49a42b91187c07308, type: 3}
-  tankHuman: {fileID: -7040980637206130413, guid: d98e3fc52a19f77499267068ff99e2ce, type: 3}
-  rangedHuman: {fileID: -8172081818862857758, guid: d6ed6be2acdd1cd4ab0875ab00403ebc, type: 3}
+  meleeAI: {fileID: 603183673745925156, guid: c9fef75f6e3bfbb4c918281bab55265c, type: 3}
+  tankAI: {fileID: -2496576109656874225, guid: 657fe531bbbd8974885a62c3736e9ef2, type: 3}
+  rangedAI: {fileID: 8562554816016724707, guid: 35c4741d7a3d35f4cab7cd95bbaf096a, type: 3}
+  meleeHuman: {fileID: 5244249770468646558, guid: 098d46848c9054d49a42b91187c07308, type: 3}
+  tankHuman: {fileID: 2390244014224649940, guid: d98e3fc52a19f77499267068ff99e2ce, type: 3}
+  rangedHuman: {fileID: 947726581481336272, guid: d6ed6be2acdd1cd4ab0875ab00403ebc, type: 3}
 --- !u!4 &1195703329
 Transform:
   m_ObjectHideFlags: 0
