@@ -22,6 +22,7 @@ public class Tile : MonoBehaviour
     public bool unitCanMoveTo = false;
     public bool isWalkeable;
     private int maxRange;
+    private static Tile lastTile;
 
     public BaseUnit occupiedUnit;
     public GameObject unit;
@@ -52,12 +53,16 @@ public class Tile : MonoBehaviour
     }
 
     public void OnMouseDown(){
+
         if(GameManager.Instance.State != GameState.PlayerTurn) return;
-        if(occupiedUnit != null){
-            if(occupiedUnit.player == Player.Human){
+        if (occupiedUnit != null){
+            lastTile = this;
+            if (occupiedUnit.player == Player.Human){
                 UnitManager.Instance.SelectedHero((BaseHumanUnit)occupiedUnit);
                 UnitManager.selectedHumanUnit.UnitHighlightDisable(UnitManager.vecinosAntiguos);
                 UnitManager.vecinosAntiguos.Clear();
+
+
                 if (occupiedUnit.type == Type.Heavy)
                 {
                     maxRange = 1;
@@ -70,8 +75,8 @@ public class Tile : MonoBehaviour
                 {
                     maxRange = 2;
                 }
-                UnitManager.vecinosAntiguos = UnitManager.selectedHumanUnit.UnitHighlight(maxRange, this);          
-                Debug.Log(occupiedUnit);
+                UnitManager.vecinosAntiguos = UnitManager.selectedHumanUnit.UnitHighlight(maxRange, this);
+                //Debug.Log(occupiedUnit);
             }
             else
             {
@@ -84,7 +89,14 @@ public class Tile : MonoBehaviour
         }
         else
         {
-            Debug.Log(DisplayUnit.SelectedUnit);
+            if (unitCanMoveTo)
+            {
+                UnitManager.selectedHumanUnit.occupiedTile = this;
+                this.occupiedUnit = UnitManager.selectedHumanUnit;
+                lastTile.occupiedUnit.transform.position = this.transform.position;
+                lastTile.occupiedUnit = null;
+            }
+
             switch (DisplayUnit.SelectedUnit)
             {
                 case "melee":
