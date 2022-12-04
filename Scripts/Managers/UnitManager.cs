@@ -8,15 +8,16 @@ public class UnitManager : MonoBehaviour
 
     public static List<string> _playerUnits = new List<string>();
     public static List<string> _AIUnits = new List<string>();
+    public static List<Tile> vecinosAntiguos = new List<Tile>();
 
     public BaseUnit meleeAI;
     public BaseUnit tankAI;
     public BaseUnit rangedAI;
-    public BaseUnit meleeHuman;
-    public BaseUnit tankHuman;
-    public BaseUnit rangedHuman;
+    public InfantryHuman meleeHuman;
+    public HeavyHuman tankHuman;
+    public RangedHuman rangedHuman;
 
-    public BaseHumanUnit selectedHumanUnit;
+    public static BaseHumanUnit selectedHumanUnit;
 
     private void Awake()
     {
@@ -80,24 +81,24 @@ public class UnitManager : MonoBehaviour
                     var spawnTileMelee = Grid.Instance.GetRandomHumanSpawnTile();
                     melee.transform.position = spawnTileMelee.transform.position;
                     spawnTileMelee.occupiedUnit = melee;
-                    InfantryHuman unitMelee = melee.GetComponent<InfantryHuman>();
-                    unitMelee.occupiedTile = spawnTileMelee;
+                    //InfantryHuman unitMelee = melee.GetComponent<InfantryHuman>();
+                    melee.occupiedTile = spawnTileMelee;
                     break;
                 case "tank":
                     var tank = Instantiate(tankHuman);
                     var spawnTileTank = Grid.Instance.GetRandomHumanSpawnTile();
                     tank.transform.position = spawnTileTank.transform.position;
                     spawnTileTank.occupiedUnit = tank;
-                    HeavyHuman unitTank = tank.GetComponent<HeavyHuman>();
-                    unitTank.occupiedTile = spawnTileTank;
+                    //HeavyHuman unitTank = tank.GetComponent<HeavyHuman>();
+                    tank.occupiedTile = spawnTileTank;
                     break;
                 case "ranged":
                     var ranged = Instantiate(rangedHuman);
                     var spawnTileRanged = Grid.Instance.GetRandomHumanSpawnTile();
                     ranged.transform.position = spawnTileRanged.transform.position;
                     spawnTileRanged.occupiedUnit = ranged;
-                    RangedHuman unitRanged = ranged.GetComponent<RangedHuman>();
-                    unitRanged.occupiedTile = spawnTileRanged;
+                    //RangedHuman unitRanged = ranged.GetComponent<RangedHuman>();
+                    ranged.occupiedTile = spawnTileRanged;
                     break;
             }
         }

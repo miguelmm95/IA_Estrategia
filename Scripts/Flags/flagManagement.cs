@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class flagManagement : MonoBehaviour
 {
-    private GameObject gm;
-    private Grid gridTiles;
     private List<Tile> neighbours;
     private BaseUnit unit;
     private int turno;
@@ -13,9 +11,7 @@ public class flagManagement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GameObject gm = GameObject.FindWithTag("Grid");
-        gridTiles = gm.GetComponent<Grid>();
-        neighbours = gridTiles.GetNeighboursUnit(this.transform.parent.GetComponent<Tile>());
+        neighbours = Grid.Instance.GetNeighboursUnit(this.transform.parent.GetComponent<Tile>());
     }
 
     // Update is called once per frame
@@ -23,7 +19,7 @@ public class flagManagement : MonoBehaviour
     {
         foreach (Tile n in neighbours)
         {
-            if (n.unitStay)
+            if (n.occupiedUnit != null)
             {
                 unit = n.occupiedUnit;
                 break;

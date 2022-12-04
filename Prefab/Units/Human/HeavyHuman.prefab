@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6996316086540399433}
   - component: {fileID: 6006172530714194689}
   - component: {fileID: 8265865357967465631}
-  - component: {fileID: -7040980637206130413}
+  - component: {fileID: 2390244014224649940}
   m_Layer: 0
   m_Name: HeavyHuman
   m_TagString: Tank
@@ -107,7 +107,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &-7040980637206130413
+--- !u!114 &2390244014224649940
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -116,10 +116,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 5320753844136008481}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d4d2ba38ca3f0904181061b22f6dbb9f, type: 3}
+  m_Script: {fileID: 11500000, guid: b43ef7bcec1b63c48845ea8a508d3495, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   occupiedTile: {fileID: 0}
   player: 0
+  type: 0
   maxRange: 1
-  tile: {fileID: 0}

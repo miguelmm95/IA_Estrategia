@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1564025498962250507}
   - component: {fileID: 7926053318335401854}
   - component: {fileID: 327004346947456462}
-  - component: {fileID: -8172081818862857758}
+  - component: {fileID: 947726581481336272}
   m_Layer: 0
   m_Name: RangedHuman
   m_TagString: Ranged
@@ -107,7 +107,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &-8172081818862857758
+--- !u!114 &947726581481336272
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -116,9 +116,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1004203453961666766}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fb3601261979bf24aa6281c62bb17fc3, type: 3}
+  m_Script: {fileID: 11500000, guid: 6c7b6e71bc58da54a9132c46535267ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   occupiedTile: {fileID: 0}
   player: 0
+  type: 2
   maxRange: 3

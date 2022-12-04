@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7064342655553973940}
   - component: {fileID: 7664586480931482866}
   - component: {fileID: 2186208305739112747}
-  - component: {fileID: 4813957937931719755}
+  - component: {fileID: 5244249770468646558}
   m_Layer: 0
   m_Name: InfrantyHuman
   m_TagString: Infantery
@@ -107,7 +107,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &4813957937931719755
+--- !u!114 &5244249770468646558
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -116,10 +116,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 8127921557340382575}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 52a644dfa43cc5347a327bcf5f6197b7, type: 3}
+  m_Script: {fileID: 11500000, guid: 7c0b050e8d76d50438e01bc9070e0d0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   occupiedTile: {fileID: 0}
   player: 0
+  type: 1
   maxRange: 2
-  tile: {fileID: 0}

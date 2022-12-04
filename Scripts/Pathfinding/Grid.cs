@@ -181,7 +181,8 @@ public class Grid : MonoBehaviour {
 					int checkX = tile.posX + x;
 					int checkY = tile.posY + y;
 
-					if (checkX >= 0 && checkX < gridSizeX && checkY >= 0 && checkY < gridSizeY)
+					if (checkX >= 0 && checkX < gridSizeX && checkY >= 0 && checkY < gridSizeY && gridTiles[checkX, checkY].isWalkeable 
+						&& gridTiles[checkX, checkY].occupiedUnit == null)
 					{
 						neighbours.Add(gridTiles[checkX, checkY]);
 					}
@@ -207,7 +208,7 @@ public class Grid : MonoBehaviour {
 					int checkX = tile.posX + x;
 					int checkY = tile.posY + y;
 
-					if (checkX >= 0 && checkX < gridSizeX && checkY >= 0 && checkY < gridSizeY)
+					if (checkX >= 0 && checkX < gridSizeX && checkY >= 0 && checkY < gridSizeY && gridTiles[checkX, checkY] != null)
 					{
 						neighbours.Add(gridTiles[checkX, checkY]);
 					}
@@ -256,13 +257,13 @@ public class Grid : MonoBehaviour {
 				}
                 if (!n.walkable)
                 {
-                    var tiles = Instantiate(tile_nonWalkable, n.worldPosition, Quaternion.identity);
+                    var tiles = Instantiate(prefabTile, n.worldPosition, Quaternion.identity);
                     tiles.gameObject.transform.localScale = new Vector3(scale, scale, scale);
 					Tile tile = tiles.GetComponent<Tile>();
-					gridTiles[n.gridX, n.gridY] = null;
 					tile.SetCoord(n.gridX, n.gridY);
 					tile.name = $"Tile {n.gridX} {n.gridY}";
 					tile.isWalkeable = false;
+					tile.SetNonWalkable();
 					gridTiles[n.gridX, n.gridY] = tile;
 				}
                 else

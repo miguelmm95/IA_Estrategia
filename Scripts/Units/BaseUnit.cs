@@ -6,5 +6,5 @@ public class BaseUnit : MonoBehaviour
 {
     public Tile occupiedTile;
     public Player player;
-
+    public Type type;
 }
