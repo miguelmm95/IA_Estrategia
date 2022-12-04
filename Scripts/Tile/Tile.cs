@@ -11,6 +11,9 @@ public class Tile : MonoBehaviour
     [SerializeField] private GameObject _banderaIA;
     [SerializeField] private GameObject _banderaJugador;
     [SerializeField] private GameObject _nonWalkable;
+    [SerializeField] private BaseUnit Melee;
+    [SerializeField] private BaseUnit Tank;
+    [SerializeField] private BaseUnit Ranged;
     [HideInInspector] public int posX;
     [HideInInspector] public int posY;
     [HideInInspector] public bool unitStay = false;
@@ -81,10 +84,46 @@ public class Tile : MonoBehaviour
         }
         else
         {
+            Debug.Log(DisplayUnit.SelectedUnit);
+            switch (DisplayUnit.SelectedUnit)
+            {
+                case "melee":
+                    if (UnitManager._playerUnits.Contains("melee") && this.isWalkeable)
+                    {
+                        Instantiate(Melee, new Vector3(this.transform.position.x, this.transform.position.y, 0), Quaternion.identity);
+                        UnitManager._playerUnits.Remove("melee");
+                        this.occupiedUnit = Melee;
+                        this.occupiedUnit.player = Player.Human;
+                        this.occupiedUnit.type = Type.Infantry;
+                    }
+                    break;
+                case "tank":
+                    if (UnitManager._playerUnits.Contains("tank") && this.isWalkeable)
+                    {
+                        Instantiate(Tank, new Vector3(this.transform.position.x, this.transform.position.y, 0), Quaternion.identity);
+                        UnitManager._playerUnits.Remove("tank");
+                        this.occupiedUnit = Tank;
+                        this.occupiedUnit.player = Player.Human;
+                        this.occupiedUnit.type = Type.Heavy;
+                    }
+                    break;
+                case "ranged":
+                    if (UnitManager._playerUnits.Contains("ranged") && this.isWalkeable)
+                    {
+                        Instantiate(Ranged, new Vector3(this.transform.position.x, this.transform.position.y, 0), Quaternion.identity);
+                        UnitManager._playerUnits.Remove("ranged");
+                        this.occupiedUnit = Ranged;
+                        this.occupiedUnit.player = Player.Human;
+                        this.occupiedUnit.type = Type.Ranged;
+                    }
+                    break;
+                default:
+                    break;
+            }
+
             UnitManager.selectedHumanUnit.UnitHighlightDisable(UnitManager.vecinosAntiguos);
             UnitManager.selectedHumanUnit = null;
             UnitManager.vecinosAntiguos.Clear();
-
         }
     }
 

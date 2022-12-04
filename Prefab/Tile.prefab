@@ -112,6 +112,9 @@ MonoBehaviour:
   _banderaIA: {fileID: 3197658546807862215}
   _banderaJugador: {fileID: 4408093896225497387}
   _nonWalkable: {fileID: 389416755941465910}
+  Melee: {fileID: 5244249770468646558, guid: 098d46848c9054d49a42b91187c07308, type: 3}
+  Tank: {fileID: 2390244014224649940, guid: d98e3fc52a19f77499267068ff99e2ce, type: 3}
+  Ranged: {fileID: 947726581481336272, guid: d6ed6be2acdd1cd4ab0875ab00403ebc, type: 3}
   posX: 0
   posY: 0
   unitStay: 0
