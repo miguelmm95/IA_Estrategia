@@ -2,34 +2,34 @@ using System.Collections.Generic;
 
 namespace BehaviorTree
 {
-    public class Sequence : Node
+    public class Sequence : NodeBT
     {
         public Sequence() : base() { }
-        public Sequence(List<Node> children) : base(children) { }
+        public Sequence(List<NodeBT> children) : base(children) { }
 
-        public override NodeState Evaluate()
+        public override NodeBTState Evaluate()
         {
             bool anyChildIsRunning = false;
 
-            foreach(Node node in children)
+            foreach(NodeBT NodeBT in children)
             {
-                switch(node.Evaluate())
+                switch(NodeBT.Evaluate())
                 {
-                    case NodeState.FAILURE:
-                        state = NodeState.FAILURE;
+                    case NodeBTState.FAILURE:
+                        state = NodeBTState.FAILURE;
                         return state;
-                    case NodeState.SUCCESS:
+                    case NodeBTState.SUCCESS:
                         continue;
-                    case NodeState.RUNNING:
+                    case NodeBTState.RUNNING:
                         anyChildIsRunning = true;
                         continue;
                     default:
-                        state = NodeState.SUCCESS;
+                        state = NodeBTState.SUCCESS;
                         return state;
                 }
             }
 
-            state = anyChildIsRunning ? NodeState.RUNNING : NodeState.SUCCESS;
+            state = anyChildIsRunning ? NodeBTState.RUNNING : NodeBTState.SUCCESS;
             return state;
         }
     }

@@ -2,31 +2,31 @@ using System.Collections.Generic;
 
 namespace BehaviorTree
 {
-    public class Selector : Node
+    public class Selector : NodeBT
     {
         public Selector() : base() { }
-        public Selector(List<Node> children) : base(children) { }
+        public Selector(List<NodeBT> children) : base(children) { }
 
-        public override NodeState Evaluate()
+        public override NodeBTState Evaluate()
         {
-            foreach(Node node in children)
+            foreach(NodeBT NodeBT in children)
             {
-                switch(node.Evaluate())
+                switch(NodeBT.Evaluate())
                 {
-                    case NodeState.FAILURE:
+                    case NodeBTState.FAILURE:
                         continue;
-                    case NodeState.SUCCESS:
-                        state = NodeState.SUCCESS;
+                    case NodeBTState.SUCCESS:
+                        state = NodeBTState.SUCCESS;
                         return state;
-                    case NodeState.RUNNING:
-                        state = NodeState.RUNNING;
+                    case NodeBTState.RUNNING:
+                        state = NodeBTState.RUNNING;
                         return state;
                     default:
                         continue;
                 }
             }
 
-            state = NodeState.FAILURE;
+            state = NodeBTState.FAILURE;
             return state;
         }
     }

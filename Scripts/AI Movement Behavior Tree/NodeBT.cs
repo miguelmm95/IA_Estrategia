@@ -4,38 +4,38 @@ using UnityEngine;
 
 namespace BehaviorTree
 {
-    public enum NodeState
+    public enum NodeBTState
     {
         RUNNING,
         SUCCESS,
         FAILURE
     }
 
-    public class Node
+    public class NodeBT
     {
-        protected NodeState state;
-        public Node parent;
-        protected List<Node> children;
+        protected NodeBTState state;
+        public NodeBT parent;
+        protected List<NodeBT> children;
         private Dictionary<string, object> _dataContext = new Dictionary<string, object>();
     
-        public Node()
+        public NodeBT()
         {
             parent = null;
         }
 
-        public Node(List<Node> children)
+        public NodeBT(List<NodeBT> children)
         {
-            foreach(Node child in children)
+            foreach(NodeBT child in children)
                 _Attach(child);
         }
 
-        private void _Attach(Node node)
+        private void _Attach(NodeBT NodeBT)
         {
-            node.parent = this;
-            children.Add(node);
+            NodeBT.parent = this;
+            children.Add(NodeBT);
         }
 
-        public virtual NodeState Evaluate() => NodeState.FAILURE; 
+        public virtual NodeBTState Evaluate() => NodeBTState.FAILURE; 
 
         public void SetData(string key, object value)
         {
@@ -48,13 +48,13 @@ namespace BehaviorTree
             if(_dataContext.TryGetValue(key, out value))
                 return value;
             
-            Node node = parent;
-            while(node != null)
+            NodeBT NodeBT = parent;
+            while(NodeBT != null)
             {
-                value = node.GetData(key);
+                value = NodeBT.GetData(key);
                 if(value != null)
                     return value;
-                node = node.parent;
+                NodeBT = NodeBT.parent;
             }
             
             return null;
@@ -68,13 +68,13 @@ namespace BehaviorTree
                 return true;
             }
 
-            Node node = parent;
-            while(node != null)
+            NodeBT NodeBT = parent;
+            while(NodeBT != null)
             {
-                bool cleared = node.ClearData(key);
+                bool cleared = NodeBT.ClearData(key);
                 if(cleared)
                     return true;
-                node = node.parent;
+                NodeBT = NodeBT.parent;
             }
             return false;
         }
