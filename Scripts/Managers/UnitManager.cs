@@ -8,6 +8,9 @@ public class UnitManager : MonoBehaviour
 
     public static List<string> _playerUnits = new List<string>();
     public static List<string> _AIUnits = new List<string>();
+    public static List<BaseAIUnit> _AIUnitsObjects = new List<BaseAIUnit>();
+    public static List<GameObject> _playerFlags = new List<GameObject>();
+    public static List<GameObject> _AIFlags = new List<GameObject>();
     public static List<Tile> vecinosAntiguos = new List<Tile>();
 
     public BaseUnit meleeAI;
@@ -38,6 +41,7 @@ public class UnitManager : MonoBehaviour
             switch(_AIUnits[i]){
                 case "melee":
                     var melee = Instantiate(meleeAI);
+                    _AIUnitsObjects.Add((BaseAIUnit)melee);
                     var spawnTileMelee = Grid.Instance.GetRandomAISpawnTile();
                     melee.transform.position = spawnTileMelee.transform.position;
                     spawnTileMelee.occupiedUnit = melee;
@@ -47,16 +51,17 @@ public class UnitManager : MonoBehaviour
 
                 case "tank":
                     var tank = Instantiate(tankAI);
+                    _AIUnitsObjects.Add((BaseAIUnit)tank);
                     var spawnTileTank = Grid.Instance.GetRandomAISpawnTile();
                     tank.transform.position = spawnTileTank.transform.position;
                     spawnTileTank.occupiedUnit = tank;
                     HeavyAI unitTank = tank.GetComponent<HeavyAI>();
                     unitTank.occupiedTile = spawnTileTank;
-
                     break;
 
                 case "ranged":
                     var ranged = Instantiate(rangedAI);
+                    _AIUnitsObjects.Add((BaseAIUnit)ranged);
                     var spawnTileRanged = Grid.Instance.GetRandomAISpawnTile();
                     ranged.transform.position = spawnTileRanged.transform.position;
                     spawnTileRanged.occupiedUnit = ranged;
@@ -81,7 +86,6 @@ public class UnitManager : MonoBehaviour
                     var spawnTileMelee = Grid.Instance.GetRandomHumanSpawnTile();
                     melee.transform.position = spawnTileMelee.transform.position;
                     spawnTileMelee.occupiedUnit = melee;
-                    //InfantryHuman unitMelee = melee.GetComponent<InfantryHuman>();
                     melee.occupiedTile = spawnTileMelee;
                     break;
                 case "tank":
@@ -89,7 +93,6 @@ public class UnitManager : MonoBehaviour
                     var spawnTileTank = Grid.Instance.GetRandomHumanSpawnTile();
                     tank.transform.position = spawnTileTank.transform.position;
                     spawnTileTank.occupiedUnit = tank;
-                    //HeavyHuman unitTank = tank.GetComponent<HeavyHuman>();
                     tank.occupiedTile = spawnTileTank;
                     break;
                 case "ranged":
@@ -97,10 +100,16 @@ public class UnitManager : MonoBehaviour
                     var spawnTileRanged = Grid.Instance.GetRandomHumanSpawnTile();
                     ranged.transform.position = spawnTileRanged.transform.position;
                     spawnTileRanged.occupiedUnit = ranged;
-                    //RangedHuman unitRanged = ranged.GetComponent<RangedHuman>();
                     ranged.occupiedTile = spawnTileRanged;
                     break;
             }
         }
+    }
+
+    public flagManagement getRandomHumanFlag()
+    {
+        GameObject _object = _playerFlags[Random.Range(0, _playerFlags.Count - 1)];
+
+        return _object.GetComponent<flagManagement>();
     }
 }

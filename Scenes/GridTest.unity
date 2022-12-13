@@ -2825,7 +2825,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20ccd5394187cdd45b4ea5d1c7c5b0ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _cam: {fileID: 0}
+  _cam: {fileID: 519420032}
   displayGridGizmos: 0
   unwalkableMask:
     serializedVersion: 2
@@ -2836,6 +2836,8 @@ MonoBehaviour:
   obstacleProximityPenalty: 10
   prefabTile: {fileID: 353268147552342901, guid: 63e7ee7f714b66649b05c14c0ab4577a, type: 3}
   tile_nonWalkable: {fileID: 1636226781773970933, guid: 70096af0988e60a4cb60ef88001f2db0, type: 3}
+  bandera_IA: {fileID: 930214975482213757, guid: d44ea1acbe158db4eacff4e8ea22b2ee, type: 3}
+  bandera_Jugador: {fileID: 7005006748410244190, guid: b6224b129fbd53d40a315921b5261b09, type: 3}
   probabilidad: 15
 --- !u!4 &1505363445
 Transform:

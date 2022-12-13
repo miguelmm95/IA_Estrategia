@@ -5,11 +5,11 @@ using UnityEngine;
 public class flagManagement : MonoBehaviour
 {
     private List<Tile> neighbours;
-    private Tile tileFlag;
     private BaseUnit unit;
     private int turno;
     public GameObject bandera_IA;
     public GameObject bandera_Jugador;
+    public Tile tileFlag;
     private Transform positionFlag;
 
     // Start is called before the first frame update
@@ -40,7 +40,6 @@ public class flagManagement : MonoBehaviour
             case "Bandera_Jugador":
                 if (turno == 3 && unit.player == Player.AI)
                 {
-
                     turno = 0;
                     Instantiate(bandera_IA, positionFlag.position + new Vector3(0, 0, 2), Quaternion.identity);
                     Destroy(this);    

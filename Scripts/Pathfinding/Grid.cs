@@ -24,7 +24,7 @@ public class Grid : MonoBehaviour {
 	public GameObject bandera_Jugador;
 	public int probabilidad;
 
-	private int contBanIA = 0;
+    private int contBanIA = 0;
 	private int contBanJug = 0;
 
 	float nodeDiameter;
@@ -318,13 +318,15 @@ public class Grid : MonoBehaviour {
 					if (gridFloat/gridSizeFloat < 0.3 && Random.Range(0, 30) == 0 && contBanJug < 3)
                     {
 						var banderaJugador = Instantiate(bandera_Jugador, n.worldPosition + new Vector3(0, 0, 2), Quaternion.identity);
-						banderaJugador.gameObject.transform.localScale = new Vector3(scale, scale, scale);
+						UnitManager._playerFlags.Add(banderaJugador);
+						tile.hasAFlag = true;
 						contBanJug++;
                     }
                     else if (gridFloat / gridSizeFloat > 0.7 && Random.Range(0, 30) == 0 && contBanIA < 3)
                     {
 						var banderaIA = Instantiate(bandera_IA, n.worldPosition + new Vector3(0, 0, 2), Quaternion.identity);
-						banderaIA.gameObject.transform.localScale = new Vector3(scale, scale, scale);
+						UnitManager._AIFlags.Add(banderaIA);
+						tile.hasAFlag = true;
 						contBanIA++;
                     }
                 }

@@ -22,6 +22,7 @@ public class Tile : MonoBehaviour
 
     public bool unitCanMoveTo = false;
     public bool isWalkeable;
+    public bool hasAFlag = false;
     private int maxRange;
     private static Tile lastTile;
 
@@ -197,5 +198,4 @@ public class Tile : MonoBehaviour
         posX = x;
         posY = y;
     }
-
 }
