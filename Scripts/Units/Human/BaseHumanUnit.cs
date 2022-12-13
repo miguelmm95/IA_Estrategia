@@ -36,6 +36,24 @@ public class BaseHumanUnit : BaseUnit
         return neighbours;
     }
 
+    public List<Tile> UnitHighlightAtack(int maxRange, Tile tile)
+    {
+        neighbours = Grid.Instance.GetNeighboursUnitAtack(tile, maxRange);
+
+        foreach(Tile n in neighbours)
+        {
+            if(n == null)
+            {
+                continue;
+            }
+            else
+            {
+                n.SetUnitHighlightAtack();
+            }
+        }
+        return neighbours;
+    }
+
     public void UnitHighlightDisable(List<Tile> neighbours1)
     {
         if (neighbours1.Count != 0)
@@ -53,6 +71,23 @@ public class BaseHumanUnit : BaseUnit
                 }
             }
         }
-        
+    }
+
+    public void UnitHighlightDisableAtack(List<Tile> neighbours1)
+    {
+        if(neighbours1.Count != 0)
+        {
+            foreach(Tile n in neighbours1)
+            {
+                if(n == null)
+                {
+                    continue;
+                }
+                else
+                {
+                    n.DisableUnitHighlightAtack();
+                }
+            }
+        }
     }
 }

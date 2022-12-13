@@ -7,6 +7,7 @@ public class Tile : MonoBehaviour
     [SerializeField] private Color _baseColor, _offsetColor;
     [SerializeField] private SpriteRenderer _renderer;
     [SerializeField] private GameObject _highlight;
+    [SerializeField] private GameObject _highlightAtack;
     [SerializeField] private GameObject _unitColor;
     [SerializeField] private GameObject _banderaIA;
     [SerializeField] private GameObject _banderaJugador;
@@ -58,29 +59,32 @@ public class Tile : MonoBehaviour
         if (occupiedUnit != null){
             lastTile = this;
             if (occupiedUnit.player == Player.Human){
-                UnitManager.Instance.SelectedHero((BaseHumanUnit)occupiedUnit);
-                UnitManager.selectedHumanUnit.UnitHighlightDisable(UnitManager.vecinosAntiguos);
-                UnitManager.vecinosAntiguos.Clear();
 
+                if(occupiedUnit.state == State.Unselected)
+                {
+                    UnitManager.Instance.SelectedHero((BaseHumanUnit)occupiedUnit);
+                    UnitManager.selectedHumanUnit.UnitHighlightDisable(UnitManager.vecinosAntiguos);
+                    UnitManager.selectedHumanUnit.state = State.Selected;
+                    UnitManager.vecinosAntiguos.Clear();
 
-                if (occupiedUnit.type == Type.Heavy)
-                {
-                    maxRange = 1;
+                    UnitManager.vecinosAntiguos = UnitManager.selectedHumanUnit.UnitHighlight(occupiedUnit.GetMaxRange(occupiedUnit.type), this);
+                    //Debug.Log(occupiedUnit);
                 }
-                else if (occupiedUnit.type == Type.Ranged)
+
+                if(occupiedUnit.state == State.Moved)
                 {
-                    maxRange = 3;
+                    UnitManager.Instance.SelectedHero((BaseHumanUnit)occupiedUnit);
+                    UnitManager.selectedHumanUnit.UnitHighlightDisableAtack(UnitManager.vecinosAntiguos);
+                    UnitManager.selectedHumanUnit.state = State.Atacking;
+                    UnitManager.vecinosAntiguos.Clear();
+
+                    UnitManager.vecinosAntiguos = UnitManager.selectedHumanUnit.UnitHighlightAtack(occupiedUnit.GetRangeAtack(occupiedUnit.type), this);
                 }
-                else
-                {
-                    maxRange = 2;
-                }
-                UnitManager.vecinosAntiguos = UnitManager.selectedHumanUnit.UnitHighlight(maxRange, this);
-                //Debug.Log(occupiedUnit);
+
             }
             else
             {
-                if(UnitManager.selectedHumanUnit != null)
+                if(UnitManager.selectedHumanUnit != null && UnitManager.selectedHumanUnit.state == State.Atacking)
                 {
                     //Ataque
                     Debug.Log("HIT");
@@ -92,6 +96,7 @@ public class Tile : MonoBehaviour
             if (unitCanMoveTo)
             {
                 UnitManager.selectedHumanUnit.occupiedTile = this;
+                UnitManager.selectedHumanUnit.state = State.Moved;
                 this.occupiedUnit = UnitManager.selectedHumanUnit;
                 lastTile.occupiedUnit.transform.position = this.transform.position;
                 lastTile.occupiedUnit = null;
@@ -132,8 +137,11 @@ public class Tile : MonoBehaviour
                 default:
                     break;
             }
-
-            UnitManager.selectedHumanUnit.UnitHighlightDisable(UnitManager.vecinosAntiguos);
+            if(UnitManager.vecinosAntiguos.Count != 0)
+            {
+                UnitManager.selectedHumanUnit.UnitHighlightDisable(UnitManager.vecinosAntiguos);
+                UnitManager.selectedHumanUnit.UnitHighlightDisableAtack(UnitManager.vecinosAntiguos);
+            }
             UnitManager.selectedHumanUnit = null;
             UnitManager.vecinosAntiguos.Clear();
         }
@@ -144,16 +152,25 @@ public class Tile : MonoBehaviour
         _unitColor.SetActive(true);
     }
 
+    public void SetUnitHighlightAtack()
+    {
+        _highlightAtack.SetActive(true);
+    }
+
     public void DisableUnitHighlight()
     {
         _unitColor.SetActive(false);
+    }
+
+    public void DisableUnitHighlightAtack()
+    {
+        _highlightAtack.SetActive(false);
     }
 
     public void SetNonWalkable()
     {
         _nonWalkable.SetActive(true);
     }
-
 
     public void SetBanderaIA()
     {
@@ -174,6 +191,7 @@ public class Tile : MonoBehaviour
     {
         _banderaJugador.SetActive(false);
     }
+
     public void SetCoord(int x, int y)
     {
         posX = x;

@@ -11,10 +11,10 @@ public class AIPlayer : Tree
         NodeBT root = new Selector(new List<NodeBT>
         {
             new Sequence(new List<NodeBT>{
-                new DefendAIFlags(AIFlags),
-                new MoveToFlags(PlayerFlags),
+                //new DefendAIFlags(AIFlags),
+                //new MoveToFlags(PlayerFlags),
             }),
-            new MoveToFlags(PlayerFlags),
+            //new MoveToFlags(PlayerFlags),
         });
 
         return root;

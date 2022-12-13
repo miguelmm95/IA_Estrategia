@@ -10,9 +10,9 @@ public class DefendAIFlags : NodeBT
 
     public DefendAIFlags(List<GameObject> flags)
     {
-        foreach(GameObject flag in flags)
+        /*foreach(GameObject flag in flags)
         {
-            foreach(Tile tile in Grid.Instance.GetNeighboursUnit(/*flag.tile*/))
+            foreach(Tile tile in Grid.Instance.GetNeighboursUnit(/*flag.tile))
             {
                 if(tile.occupiedUnit != null && tile.occupiedUnit.player == Player.Human)
                 {
@@ -29,7 +29,7 @@ public class DefendAIFlags : NodeBT
             {
                 //funcion dos unidades mas cercanas
             }
-        }
+        }*/
     }
 
     public override NodeBTState Evaluate()

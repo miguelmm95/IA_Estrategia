@@ -195,7 +195,38 @@ public class Grid : MonoBehaviour {
         return neighbours;
     }
 
-	public List<Tile> GetNeighboursUnit(Tile tile)
+    public List<Tile> GetNeighboursUnitAtack(Tile tile, int max)
+    {
+        List<Tile> neighbours = new List<Tile>();
+
+        for (int x = -max; x <= max; x++)
+        {
+            for (int y = -max; y <= max; y++)
+            {
+                if (x == 0 && y == 0)
+                    continue;
+                else if (Mathf.Abs(x) == max && Mathf.Abs(y) == max)
+                {
+                    continue;
+                }
+                else
+                {
+                    int checkX = tile.posX + x;
+                    int checkY = tile.posY + y;
+
+                    if (checkX >= 0 && checkX < gridSizeX && checkY >= 0 && checkY < gridSizeY && gridTiles[checkX, checkY].isWalkeable
+                        && (gridTiles[checkX, checkY].occupiedUnit == null || gridTiles[checkX, checkY].occupiedUnit.player == Player.AI))
+                    {
+                        neighbours.Add(gridTiles[checkX, checkY]);
+                    }
+                }
+            }
+        }
+
+        return neighbours;
+    }
+
+    public List<Tile> GetNeighboursUnit(Tile tile)
 	{
 		List<Tile> neighbours = new List<Tile>();
 
