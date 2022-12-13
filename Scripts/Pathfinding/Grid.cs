@@ -20,6 +20,8 @@ public class Grid : MonoBehaviour {
 	public GameObject tile_nonWalkable;
 	Node[,] grid;
 	[HideInInspector] public Tile[,] gridTiles;
+	public GameObject bandera_IA;
+	public GameObject bandera_Jugador;
 	public int probabilidad;
 
 	private int contBanIA = 0;
@@ -284,12 +286,14 @@ public class Grid : MonoBehaviour {
 					Debug.Log(gridFloat / gridSizeFloat);
 					if (gridFloat/gridSizeFloat < 0.3 && Random.Range(0, 30) == 0 && contBanJug < 3)
                     {
-						tile.SetBanderaJugador();
+						var banderaJugador = Instantiate(bandera_Jugador, n.worldPosition + new Vector3(0, 0, 2), Quaternion.identity);
+						banderaJugador.gameObject.transform.localScale = new Vector3(scale, scale, scale);
 						contBanJug++;
                     }
                     else if (gridFloat / gridSizeFloat > 0.7 && Random.Range(0, 30) == 0 && contBanIA < 3)
                     {
-						tile.SetBanderaIA();
+						var banderaIA = Instantiate(bandera_IA, n.worldPosition + new Vector3(0, 0, 2), Quaternion.identity);
+						banderaIA.gameObject.transform.localScale = new Vector3(scale, scale, scale);
 						contBanIA++;
                     }
                 }

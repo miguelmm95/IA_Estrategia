@@ -5,18 +5,23 @@ using UnityEngine;
 public class flagManagement : MonoBehaviour
 {
     private List<Tile> neighbours;
+    private Tile tileFlag;
     private BaseUnit unit;
     private int turno;
+    public GameObject bandera_IA;
+    public GameObject bandera_Jugador;
+    private Transform positionFlag;
 
     // Start is called before the first frame update
     void Start()
     {
-        neighbours = Grid.Instance.GetNeighboursUnit(this.transform.parent.GetComponent<Tile>());
+        positionFlag = this.GetComponent<Transform>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        neighbours = Grid.Instance.GetNeighboursUnit(tileFlag);
         foreach (Tile n in neighbours)
         {
             if (n.occupiedUnit != null)
@@ -35,18 +40,19 @@ public class flagManagement : MonoBehaviour
             case "Bandera_Jugador":
                 if (turno == 3 && unit.player == Player.AI)
                 {
-                    this.transform.parent.GetComponent<Tile>().DisableBanderaJugador();
-                    this.transform.parent.GetComponent<Tile>().SetBanderaIA();
+
                     turno = 0;
+                    Instantiate(bandera_IA, positionFlag.position + new Vector3(0, 0, 2), Quaternion.identity);
+                    Destroy(this);    
                 }
                 break;
 
             case "Bandera_IA":
                 if (turno == 3 && unit.player == Player.Human)
                 {
-                    this.transform.parent.GetComponent<Tile>().DisableBanderaIA();
-                    this.transform.parent.GetComponent<Tile>().SetBanderaJugador();
                     turno = 0;
+                    Instantiate(bandera_Jugador, positionFlag.position + new Vector3(0, 0, 2), Quaternion.identity);
+                    Destroy(this);
                 }
                 break;
 
@@ -55,5 +61,12 @@ public class flagManagement : MonoBehaviour
         }
     }
 
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.tag == "Tile_Walkable")
+        {
+            tileFlag = collision.transform.gameObject.GetComponent<Tile>();
+        }
+    }
 
 }
