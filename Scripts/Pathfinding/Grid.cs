@@ -362,7 +362,7 @@ public class Grid : MonoBehaviour {
 			int indexX = Random.Range(0, gridSizeX / 2);
 			int indexY = Random.Range(0, gridSizeY - 1);
 
-			if(gridTiles[indexX, indexY].isWalkeable && gridTiles[indexX, indexY].occupiedUnit == null)
+			if(gridTiles[indexX, indexY].isWalkeable && gridTiles[indexX, indexY].occupiedUnit == null && !gridTiles[indexX, indexY].hasAFlag)
             {
 				tile = gridTiles[indexX, indexY];
 				break;
@@ -371,6 +371,39 @@ public class Grid : MonoBehaviour {
 
 		return tile;
     }
+
+	public Tile GetAggressiveAISpawnTile(string unit)
+	{
+		var tile = new Tile();
+		int indexX = 0;
+		int indexY = 0;
+
+		while (true)
+		{
+            switch (unit)
+            {
+                case "tank":
+                    indexX = Random.Range(gridSizeX / 2, gridSizeX / 2 + gridSizeX / 6);
+                    indexY = Random.Range(0, gridSizeY - 1);
+                    break;
+                case "melee":
+                    indexX = Random.Range(gridSizeX / 2 + gridSizeX / 6, gridSizeX - gridSizeX / 6);
+                    indexY = Random.Range(0, gridSizeY - 1);
+                    break;
+                default:
+                    indexX = Random.Range(gridSizeX - gridSizeX / 6, gridSizeX);
+                    indexY = Random.Range(0, gridSizeY - 1);
+                    break;
+            }
+
+            if (gridTiles[indexX, indexY].occupiedUnit == null && gridTiles[indexX, indexY].isWalkeable && !gridTiles[indexX, indexY].hasAFlag)
+            {
+                tile = gridTiles[indexX, indexY];
+				break;
+            }
+        }
+		return tile;
+	}
 
 	[System.Serializable]
 	public class TerrainType {

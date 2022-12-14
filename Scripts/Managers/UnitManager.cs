@@ -74,6 +74,45 @@ public class UnitManager : MonoBehaviour
         GameManager.Instance.UpdateGameState(GameState.PlayerTurn);
     }
 
+    public void SpawnAIUnitsAggressive()
+    {
+        var AIUnits = _AIUnits.Count;
+
+        for(int i = 0; i < AIUnits; i++)
+        {
+            switch (_AIUnits[i])
+            {
+                case "tank":
+                    var tank = Instantiate(tankAI);
+                    _AIUnitsObjects.Add((BaseAIUnit)tank);
+                    var spawnTileTank = Grid.Instance.GetAggressiveAISpawnTile("tank");
+                    tank.transform.position = spawnTileTank.transform.position;
+                    spawnTileTank.occupiedUnit = tank;
+                    HeavyAI unitTank = tank.GetComponent<HeavyAI>();
+                    unitTank.occupiedTile = spawnTileTank;
+                    break;
+                case "melee":
+                    var melee = Instantiate(meleeAI);
+                    _AIUnitsObjects.Add((BaseAIUnit)melee);
+                    var spawnTileMelee = Grid.Instance.GetAggressiveAISpawnTile("melee");
+                    melee.transform.position = spawnTileMelee.transform.position;
+                    spawnTileMelee.occupiedUnit = melee;
+                    InfantryAI unitMelee = melee.GetComponent<InfantryAI>();
+                    unitMelee.occupiedTile = spawnTileMelee;
+                    break;
+                default:
+                    var ranged = Instantiate(rangedAI);
+                    _AIUnitsObjects.Add((BaseAIUnit)ranged);
+                    var spawnTileRanged = Grid.Instance.GetAggressiveAISpawnTile("ranged");
+                    ranged.transform.position = spawnTileRanged.transform.position;
+                    spawnTileRanged.occupiedUnit = ranged;
+                    RangedAI unitRanged = ranged.GetComponent<RangedAI>();
+                    unitRanged.occupiedTile = spawnTileRanged;
+                    break;
+            }
+        }
+    }
+
     public void SpawnHumanUnitRandom()
     {
 
