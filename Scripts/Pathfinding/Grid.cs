@@ -421,7 +421,7 @@ public class Grid : MonoBehaviour {
 
 			foreach(Tile n in neighbours)
 			{
-				if(n.posX <= flag.flagPosition.posX && n.isWalkeable)
+				if(n.posX <= flag.flagPosition.posX && n.isWalkeable && n.occupiedUnit == null)
 				{
 					tilesToDefend.Add(n);
 				}
