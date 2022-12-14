@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4472650284928884772}
   - component: {fileID: 8798344744005581548}
   - component: {fileID: 8420582684152687294}
+  - component: {fileID: 4289351304708636261}
   m_Layer: 0
   m_Name: Bandera Jugador
   m_TagString: Bandera_Jugador
@@ -101,3 +102,17 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 1, y: 2}
   m_Direction: 0
+--- !u!114 &4289351304708636261
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7005006748410244190}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2d3b241f0f6ae345aa5eae668357956, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flagPosition: {fileID: 0}
+  beingAttacked: 0

@@ -33,7 +33,7 @@ public class GameManager : MonoBehaviour
                 Grid.Instance.StartGrid();
                 break;
             case GameState.SpawnAIUnits:
-                UnitManager.Instance.SpawnAIUnitsAggressive();
+                UnitManager.Instance.SpawnAIUnitsRandom();
                 break;
             case GameState.PlayerTurn:
                 HandlePlayerTurn();

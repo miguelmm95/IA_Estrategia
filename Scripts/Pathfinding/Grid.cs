@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 
 public class Grid : MonoBehaviour {
 
@@ -248,7 +249,6 @@ public class Grid : MonoBehaviour {
 				}
 			}
 		}
-
 		return neighbours;
 	}
 
@@ -318,6 +318,7 @@ public class Grid : MonoBehaviour {
 					if (gridFloat/gridSizeFloat < 0.3 && Random.Range(0, 30) == 0 && contBanJug < 3)
                     {
 						var banderaJugador = Instantiate(bandera_Jugador, n.worldPosition + new Vector3(0, 0, 2), Quaternion.identity);
+						banderaJugador.GetComponent<Flag>().flagPosition = tile;
 						UnitManager._playerFlags.Add(banderaJugador);
 						tile.hasAFlag = true;
 						contBanJug++;
@@ -325,6 +326,7 @@ public class Grid : MonoBehaviour {
                     else if (gridFloat / gridSizeFloat > 0.7 && Random.Range(0, 30) == 0 && contBanIA < 3)
                     {
 						var banderaIA = Instantiate(bandera_IA, n.worldPosition + new Vector3(0, 0, 2), Quaternion.identity);
+						banderaIA.GetComponent<Flag>().flagPosition = tile;
 						UnitManager._AIFlags.Add(banderaIA);
 						tile.hasAFlag = true;
 						contBanIA++;
@@ -397,6 +399,55 @@ public class Grid : MonoBehaviour {
             }
 
             if (gridTiles[indexX, indexY].occupiedUnit == null && gridTiles[indexX, indexY].isWalkeable && !gridTiles[indexX, indexY].hasAFlag)
+            {
+                tile = gridTiles[indexX, indexY];
+				break;
+            }
+        }
+		return tile;
+	}
+
+	public Tile GetDefensiveAISpawnTile(string unit)
+	{
+		var tile = new Tile();
+        var AIFlags = UnitManager._AIFlags;
+		var tilesToDefend = new List<Tile>();
+        var neighbours = new List<Tile>();
+
+        foreach (GameObject _flag in AIFlags)
+		{
+			var flag = _flag.GetComponent<Flag>();
+			neighbours = GetNeighboursUnit(flag.flagPosition);
+
+			foreach(Tile n in neighbours)
+			{
+				if(n.posX <= flag.flagPosition.posX && n.isWalkeable)
+				{
+					tilesToDefend.Add(n);
+				}
+			}
+
+        }
+
+        int indexX = 0;
+        int indexY = 0;
+		while (true)
+		{
+            switch (unit)
+            {
+                case "melee":
+                    indexX = Random.Range(gridSizeX / 2, gridSizeX / 2 + gridSizeX / 6);
+                    indexY = Random.Range(0, gridSizeY - 1);
+                    break;
+                case "ranged":
+                    indexX = Random.Range(gridSizeX / 2 + gridSizeX / 6, gridSizeX - gridSizeX / 6);
+                    indexY = Random.Range(0, gridSizeY - 1);
+                    break;
+                default:
+                    return tilesToDefend[Random.Range(0, tilesToDefend.Count)];
+            }
+
+            if (gridTiles[indexX, indexY].isWalkeable && gridTiles[indexX, indexY].occupiedUnit == null && !gridTiles[indexX, indexY].hasAFlag)
             {
                 tile = gridTiles[indexX, indexY];
 				break;

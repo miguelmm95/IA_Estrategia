@@ -6,7 +6,7 @@ using BehaviorTree;
 
 public class MoveToFlag : NodeBT
 {
-    public MoveToFlag(flagManagement flag, List<BaseAIUnit> units)
+    public MoveToFlag(Flag flag, List<BaseAIUnit> units)
     {
         Tile objectiveTile = new Tile();
 
@@ -16,7 +16,7 @@ public class MoveToFlag : NodeBT
 
             if (!unit.occupiedTile.hasAFlag)
             {
-                objectiveTile = unit.moveTo(Grid.Instance.GetNeighboursUnit(unit.occupiedTile, unit.getRange(unit.type)),flag.tileFlag);
+                objectiveTile = unit.moveTo(Grid.Instance.GetNeighboursUnit(unit.occupiedTile, unit.getRange(unit.type)),flag.flagPosition);
             }
             lastTile.occupiedUnit = null;
             unit.occupiedTile = objectiveTile;
