@@ -88,8 +88,16 @@ public class Tile : MonoBehaviour
                 if(UnitManager.selectedHumanUnit != null && UnitManager.selectedHumanUnit.state == State.humanAttacking)
                 {
                     //Ataque
-                    Debug.Log("HIT");
+                    UnitManager.selectedHumanUnit.Attack(UnitManager.selectedHumanUnit.damage, occupiedUnit.GetComponent<BaseAIUnit>());
+                    
+                    if (occupiedUnit.GetComponent<BaseAIUnit>().actualHealth <=0)
+                    {
+                        UnitManager._AIUnitsObjects.Remove(occupiedUnit.GetComponent<BaseAIUnit>());
+                        Destroy(occupiedUnit.gameObject);
+                    }
                 }
+                UnitManager.selectedHumanUnit.state = State.humanWaiting;
+                UnitManager.selectedHumanUnit.UnitHighlightDisableAtack(UnitManager.vecinosAntiguos);
             }
         }
         else

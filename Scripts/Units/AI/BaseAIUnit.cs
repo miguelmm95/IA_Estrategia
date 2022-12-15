@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class BaseAIUnit : BaseUnit
 {
-    public int movementRange, attackRange, totalHealth, actualHealth, damage;
+    public int movementRange, attackRange;
+    public float totalHealth, actualHealth, damage;
 
     public Tile _flagToDefend;
     public AIPlayer aiPlayer;
@@ -12,22 +13,36 @@ public class BaseAIUnit : BaseUnit
     private void Awake()
     {
         state = State.AIMoving;
+
+        switch (type)
+        {
+            case (Type.Heavy):
+                movementRange = 1;
+                attackRange = 1;
+                totalHealth = 200;
+                actualHealth = totalHealth;
+                damage = 10;
+                break;
+            case (Type.Ranged):
+                movementRange = 3;
+                attackRange = 3;
+                totalHealth = 75;
+                actualHealth = totalHealth;
+                damage = 10;
+                break;
+            default:
+                movementRange = 2;
+                attackRange = 1;
+                totalHealth = 100;
+                actualHealth = totalHealth;
+                damage = 20;
+                break;
+        }
+
     }
 
     public int getRange(Type type)
     {
-        switch (type)
-        {
-            case(Type.Heavy):
-                movementRange = 1;
-                break;
-            case (Type.Ranged):
-                movementRange = 3;
-                break;
-            default:
-                movementRange = 2;
-                break;
-        }
         return movementRange;
     }
 
@@ -45,5 +60,16 @@ public class BaseAIUnit : BaseUnit
             }
         }
         return tile;
+    }
+
+    public void getDamage(float damage)
+    {
+        actualHealth -= damage;
+    }
+
+    public void Attack(float damage, BaseHumanUnit unit)
+    {
+        damage = CalculateDamage(damage, unit);
+        unit.getDamage(damage);
     }
 }

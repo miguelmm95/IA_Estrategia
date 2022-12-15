@@ -42,4 +42,42 @@ public class BaseUnit : MonoBehaviour
 
         return atackRange;
     }
+
+    public float CalculateDamage(float damage, BaseUnit unit)
+    {
+        switch (unit.type)
+        {
+            case (Type.Heavy):
+                if(type == Type.Infantry)
+                {
+                    damage = damage * 1.5f;
+                }else if(type == Type.Ranged)
+                {
+                    damage = damage * 0.75f;
+                }
+                break;
+            case (Type.Ranged):
+                if(type == Type.Heavy)
+                {
+                    damage = damage * 1.5f;
+                }
+                else if(type == Type.Infantry)
+                {
+                    damage = damage * 0.75f;
+                }
+                break;
+            default:
+                if(type == Type.Ranged)
+                {
+                    damage = damage * 1.5f;
+                }
+                else if (type == Type.Heavy)
+                {
+                    damage = damage * 0.75f;
+                }
+                break;
+        }
+        return damage;
+    }
+
 }

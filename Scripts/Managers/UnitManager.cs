@@ -158,6 +158,7 @@ public class UnitManager : MonoBehaviour
                     break;
             }
         }
+        SpawnHumanUnitRandom();
         GameManager.Instance.UpdateGameState(GameState.PlayerTurn);
     }
 

@@ -5,17 +5,47 @@ using UnityEngine;
 public class BaseHumanUnit : BaseUnit
 {
     private List<Tile> neighbours;
-    // Start is called before the first frame update
 
-    void Start()
+    public int movementRange, attackRange;
+    public float totalHealth, actualHealth, damage;
+
+    private void Awake()
     {
-        
+        switch (type)
+        {
+            case (Type.Heavy):
+                movementRange = 1;
+                attackRange = 1;
+                totalHealth = 200;
+                actualHealth = totalHealth;
+                damage = 10;
+                break;
+            case (Type.Ranged):
+                movementRange = 3;
+                attackRange = 3;
+                totalHealth = 75;
+                actualHealth = totalHealth;
+                damage = 10;
+                break;
+            default:
+                movementRange = 2;
+                attackRange = 1;
+                totalHealth = 100;
+                actualHealth = totalHealth;
+                damage = 20;
+                break;
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    public void getDamage(float damage)
     {
-        
+        actualHealth -= damage;
+    }
+
+    public void Attack(float damage, BaseAIUnit unit)
+    {
+        damage = CalculateDamage(damage, unit);
+        unit.getDamage(damage);
     }
 
     public List<Tile> UnitHighlight(int maxRange, Tile tile)
