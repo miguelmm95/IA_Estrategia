@@ -12,9 +12,12 @@ public class AIPlayer : BehaviorTree.Tree
 
         NodeBT root = new Selector(new List<NodeBT>
         {
+            //Comprobar que no esta siendo atacada
+            //Si estan siendo atacadas, las dos unidades mas cercanas van a defender
+            //El resto atacan
             new Sequence(new List<NodeBT>{
-                //new DefendAIFlags(Grid._AIFlags, _aiUnit),
-                //new MoveToFlags(/*Bandera objetivo, unidad*/),
+                new DefendAIFlags(UnitManager._AIFlags),
+                //new RetreatToFlag(UnitManager._AIUnitsObjects),
             }),
             new MoveToFlag(UnitManager.Instance.getRandomHumanFlag(), UnitManager._AIUnitsObjects)
         });

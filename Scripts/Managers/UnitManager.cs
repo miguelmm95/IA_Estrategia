@@ -29,6 +29,11 @@ public class UnitManager : MonoBehaviour
         Instance = this;
     }
 
+    private void Update()
+    {
+        manualAIActivation();
+    }
+
     public void SelectedHero(BaseHumanUnit unit)
     {
         selectedHumanUnit = unit;
@@ -190,8 +195,43 @@ public class UnitManager : MonoBehaviour
 
     public Flag getRandomHumanFlag()
     {
-        GameObject _object = _playerFlags[Random.Range(0, _playerFlags.Count - 1)];
+        GameObject _object = new GameObject();
+
+        if (_playerFlags.Count != 0)
+        {
+            _object = _playerFlags[Random.Range(0, _playerFlags.Count)];
+        }
 
         return _object.GetComponent<Flag>();
+    }
+
+    public void manualAIActivation()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            GameManager.Instance.UpdateGameState(GameState.AITurn);
+        }
+    }
+
+    public void ActiveAIUnits()
+    {
+        foreach (BaseAIUnit unit in _AIUnitsObjects)
+        {
+            if (GameManager.Instance.State == GameState.AITurn)
+            {
+                unit.aiPlayer.enabled = true;
+            }
+        }
+    }
+
+    public void DeactivateAIUnits()
+    {
+        foreach (BaseAIUnit unit in _AIUnitsObjects)
+        {
+            if (GameManager.Instance.State == GameState.AITurn)
+            {
+                unit.aiPlayer.enabled = false;
+            }
+        }
     }
 }

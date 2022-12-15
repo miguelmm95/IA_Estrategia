@@ -9,9 +9,9 @@ namespace BehaviorTree
 
         public override NodeBTState Evaluate()
         {
-            foreach(NodeBT NodeBT in children)
+            foreach(NodeBT nodeBT in children)
             {
-                switch(NodeBT.Evaluate())
+                switch(nodeBT.Evaluate())
                 {
                     case NodeBTState.FAILURE:
                         continue;

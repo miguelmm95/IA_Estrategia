@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -33,7 +34,7 @@ public class GameManager : MonoBehaviour
                 Grid.Instance.StartGrid();
                 break;
             case GameState.SpawnAIUnits:
-                UnitManager.Instance.SpawnAIUnitsRandom();
+                UnitManager.Instance.SpawnAIUnitsDefensive();
                 break;
             case GameState.PlayerTurn:
                 HandlePlayerTurn();
@@ -66,7 +67,7 @@ public class GameManager : MonoBehaviour
 
     private void HandleAITurn()
     {
-        
+        UnitManager.Instance.ActiveAIUnits();
     }
 
     private void HandlePlayerTurn()

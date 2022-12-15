@@ -6,35 +6,24 @@ using BehaviorTree;
 
 public class DefendAIFlags : NodeBT
 {
-    private List<Tile> flagsToDefend;
+    private bool flagsInDanger;
 
     public DefendAIFlags(List<GameObject> flags)
     {
-        /*foreach(GameObject flag in flags)
+        var nearUnits = new List<BaseAIUnit>();
+
+        foreach(GameObject flag in flags)
         {
-            foreach(Tile tile in Grid.Instance.GetNeighboursUnit(/*flag.tile))
-            {
-                if(tile.occupiedUnit != null && tile.occupiedUnit.player == Player.Human)
-                {
-                    flagsToDefend.Add(flag);
-                }
+            if (flag.GetComponent<Flag>().beingAttacked) {
+                Grid.Instance.GetNearAIUnits(flag.GetComponent<Flag>().flagPosition, UnitManager._AIUnitsObjects);
+                flagsInDanger = true;
             }
         }
-
-        if(flagsToDefend.Count != 0)
-        {
-            List<BaseAIUnit> defenders = new List<BaseAIUnit>();
-
-            for(int i = 0; i < flagsToDefend.Count; i++)
-            {
-                //funcion dos unidades mas cercanas
-            }
-        }*/
     }
 
     public override NodeBTState Evaluate()
     {
-        if(flagsToDefend.Count > 0)
+        if(flagsInDanger)
         {
             state = NodeBTState.SUCCESS;
             return state;

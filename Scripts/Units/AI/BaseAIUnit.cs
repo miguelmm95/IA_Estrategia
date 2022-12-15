@@ -6,6 +6,14 @@ public class BaseAIUnit : BaseUnit
 {
     public int movementRange, attackRange, totalHealth, actualHealth, damage;
 
+    public Tile _flagToDefend;
+    public AIPlayer aiPlayer;
+
+    private void Awake()
+    {
+        state = State.AIMoving;
+    }
+
     public int getRange(Type type)
     {
         switch (type)

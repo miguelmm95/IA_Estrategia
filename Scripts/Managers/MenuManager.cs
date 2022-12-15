@@ -7,6 +7,7 @@ public class MenuManager : MonoBehaviour
 {
     [SerializeField] private GameObject _ShopUI;
     [SerializeField] private GameObject _aEstrella;
+    [SerializeField] private GameObject _behaviourTree;
 
     void Awake()
     {
@@ -24,5 +25,6 @@ public class MenuManager : MonoBehaviour
         _aEstrella.SetActive(state == GameState.GenerateGrid);
         _aEstrella.SetActive(state == GameState.SpawnAIUnits);
         _aEstrella.SetActive(state == GameState.PlayerTurn);
+
     }
 }

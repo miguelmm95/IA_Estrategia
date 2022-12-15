@@ -23,14 +23,6 @@ public class MoveToFlag : NodeBT
             unit.transform.position = objectiveTile.transform.position;
 
         }
-        /*Tile objectiveTile = new Tile();
-
-        objectiveTile = unit.moveTo(Grid.Instance.GetNeighboursUnit(unit.occupiedTile, unit.getRange(unit.type)), flag.tileFlag);
-
-        Tile lastTile = unit.occupiedTile;
-        lastTile.occupiedUnit = null;
-        unit.occupiedTile = objectiveTile;
-        unit.transform.position = objectiveTile.transform.position;*/
     }
 
     public override NodeBTState Evaluate()

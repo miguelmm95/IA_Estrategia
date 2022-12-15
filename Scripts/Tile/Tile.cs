@@ -61,22 +61,22 @@ public class Tile : MonoBehaviour
             lastTile = this;
             if (occupiedUnit.player == Player.Human){
 
-                if(occupiedUnit.state == State.Unselected)
+                if(occupiedUnit.state == State.humanUnselected)
                 {
                     UnitManager.Instance.SelectedHero((BaseHumanUnit)occupiedUnit);
                     UnitManager.selectedHumanUnit.UnitHighlightDisable(UnitManager.vecinosAntiguos);
-                    UnitManager.selectedHumanUnit.state = State.Selected;
+                    UnitManager.selectedHumanUnit.state = State.humanSelected;
                     UnitManager.vecinosAntiguos.Clear();
 
                     UnitManager.vecinosAntiguos = UnitManager.selectedHumanUnit.UnitHighlight(occupiedUnit.GetMaxRange(occupiedUnit.type), this);
                     //Debug.Log(occupiedUnit);
                 }
 
-                if(occupiedUnit.state == State.Moved)
+                if(occupiedUnit.state == State.humanMoved)
                 {
                     UnitManager.Instance.SelectedHero((BaseHumanUnit)occupiedUnit);
                     UnitManager.selectedHumanUnit.UnitHighlightDisableAtack(UnitManager.vecinosAntiguos);
-                    UnitManager.selectedHumanUnit.state = State.Atacking;
+                    UnitManager.selectedHumanUnit.state = State.humanAttacking;
                     UnitManager.vecinosAntiguos.Clear();
 
                     UnitManager.vecinosAntiguos = UnitManager.selectedHumanUnit.UnitHighlightAtack(occupiedUnit.GetRangeAtack(occupiedUnit.type), this);
@@ -85,7 +85,7 @@ public class Tile : MonoBehaviour
             }
             else
             {
-                if(UnitManager.selectedHumanUnit != null && UnitManager.selectedHumanUnit.state == State.Atacking)
+                if(UnitManager.selectedHumanUnit != null && UnitManager.selectedHumanUnit.state == State.humanAttacking)
                 {
                     //Ataque
                     Debug.Log("HIT");
@@ -97,7 +97,7 @@ public class Tile : MonoBehaviour
             if (unitCanMoveTo)
             {
                 UnitManager.selectedHumanUnit.occupiedTile = this;
-                UnitManager.selectedHumanUnit.state = State.Moved;
+                UnitManager.selectedHumanUnit.state = State.humanMoved;
                 this.occupiedUnit = UnitManager.selectedHumanUnit;
                 lastTile.occupiedUnit.transform.position = this.transform.position;
                 lastTile.occupiedUnit = null;

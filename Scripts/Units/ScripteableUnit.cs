@@ -27,9 +27,12 @@ public enum Player
 
 public enum State
 {
-    Unselected = 0,
-    Selected = 1,
-    Moved = 2,
-    Atacking = 3,
-    Waiting = 4
+    humanUnselected = 0,
+    humanSelected = 1,
+    humanMoved = 2,
+    humanAttacking = 3,
+    humanWaiting = 4,
+    AIMoving = 5,
+    AIDefending = 6,
+    AIAttacking = 7
 }

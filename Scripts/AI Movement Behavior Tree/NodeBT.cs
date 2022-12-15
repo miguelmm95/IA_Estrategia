@@ -15,7 +15,7 @@ namespace BehaviorTree
     {
         protected NodeBTState state;
         public NodeBT parent;
-        protected List<NodeBT> children;
+        protected List<NodeBT> children = new List<NodeBT>();
         private Dictionary<string, object> _dataContext = new Dictionary<string, object>();
     
         public NodeBT()
@@ -29,10 +29,10 @@ namespace BehaviorTree
                 _Attach(child);
         }
 
-        private void _Attach(NodeBT NodeBT)
+        private void _Attach(NodeBT nodeBT)
         {
-            NodeBT.parent = this;
-            children.Add(NodeBT);
+            nodeBT.parent = this;
+            children.Add(nodeBT);
         }
 
         public virtual NodeBTState Evaluate() => NodeBTState.FAILURE; 
@@ -48,13 +48,13 @@ namespace BehaviorTree
             if(_dataContext.TryGetValue(key, out value))
                 return value;
             
-            NodeBT NodeBT = parent;
-            while(NodeBT != null)
+            NodeBT nodeBT = parent;
+            while(nodeBT != null)
             {
-                value = NodeBT.GetData(key);
+                value = nodeBT.GetData(key);
                 if(value != null)
                     return value;
-                NodeBT = NodeBT.parent;
+                nodeBT = nodeBT.parent;
             }
             
             return null;
@@ -68,13 +68,13 @@ namespace BehaviorTree
                 return true;
             }
 
-            NodeBT NodeBT = parent;
-            while(NodeBT != null)
+            NodeBT nodeBT = parent;
+            while(nodeBT != null)
             {
-                bool cleared = NodeBT.ClearData(key);
+                bool cleared = nodeBT.ClearData(key);
                 if(cleared)
                     return true;
-                NodeBT = NodeBT.parent;
+                nodeBT = nodeBT.parent;
             }
             return false;
         }

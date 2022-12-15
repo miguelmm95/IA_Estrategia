@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
+using UnityEngine.TerrainUtils;
 
 public class Grid : MonoBehaviour {
 
@@ -195,6 +196,31 @@ public class Grid : MonoBehaviour {
 
         return neighbours;
     }
+
+	public void GetNearAIUnits(Tile flag, List<BaseAIUnit> units)
+	{
+		int cont = 0;
+
+		while(cont != 2)
+		{
+			float min = Mathf.Infinity;
+			BaseAIUnit _unit = null;
+
+			foreach(BaseAIUnit unit in units)
+			{
+				float distance = Vector3.Distance(flag.transform.position, unit.transform.position);
+
+				if(distance < min && unit.state != State.AIDefending)
+				{
+					_unit = unit;
+					min = distance;
+				}
+			}
+			_unit.state = State.AIDefending;
+			_unit._flagToDefend = flag;
+			cont++;
+		}
+	}
 
     public List<Tile> GetNeighboursUnitAtack(Tile tile, int max)
     {
