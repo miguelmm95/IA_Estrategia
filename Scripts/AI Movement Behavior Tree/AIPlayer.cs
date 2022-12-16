@@ -19,7 +19,12 @@ public class AIPlayer : BehaviorTree.Tree
                 new DefendAIFlags(UnitManager._AIFlags),
                 //new RetreatToFlag(UnitManager._AIUnitsObjects),
             }),
-            new MoveToFlag(UnitManager.Instance.getRandomHumanFlag(), UnitManager._AIUnitsObjects)
+            new Sequence(new List<NodeBT>
+            {
+                new MoveToFlag(UnitManager.Instance.getRandomHumanFlag(), UnitManager._AIUnitsObjects),
+                new EndAITurn(TurnManager._inGameUI, UnitManager._humanUnitsObjects)
+            })
+            
         });
 
         return root;

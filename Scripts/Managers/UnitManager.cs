@@ -9,9 +9,11 @@ public class UnitManager : MonoBehaviour
     public static List<string> _playerUnits = new List<string>();
     public static List<string> _AIUnits = new List<string>();
     public static List<BaseAIUnit> _AIUnitsObjects = new List<BaseAIUnit>();
+    public static List<BaseHumanUnit> _humanUnitsObjects = new List<BaseHumanUnit>();
 
     public static List<GameObject> _playerFlags = new List<GameObject>();
     public static List<GameObject> _AIFlags = new List<GameObject>();
+    
 
     public static List<Tile> vecinosAntiguos = new List<Tile>();
 
@@ -23,6 +25,9 @@ public class UnitManager : MonoBehaviour
     public RangedHuman rangedHuman;
 
     public static BaseHumanUnit selectedHumanUnit;
+
+    [SerializeField] private GameObject _inGameUI;
+    [SerializeField] private GameObject menuManager;
 
     private void Awake()
     {
@@ -79,6 +84,8 @@ public class UnitManager : MonoBehaviour
         }
         SpawnHumanUnitRandom();
         GameManager.Instance.UpdateGameState(GameState.PlayerTurn);
+        _inGameUI.SetActive(true);
+        menuManager.GetComponent<TurnManager>().SearchUI();
     }
 
     public void SpawnAIUnitsAggressive()
@@ -119,6 +126,8 @@ public class UnitManager : MonoBehaviour
             }
         }
         GameManager.Instance.UpdateGameState(GameState.PlayerTurn);
+        _inGameUI.SetActive(true);
+        menuManager.GetComponent<TurnManager>().SearchUI();
     }
 
     public void SpawnAIUnitsDefensive()
@@ -160,6 +169,8 @@ public class UnitManager : MonoBehaviour
         }
         SpawnHumanUnitRandom();
         GameManager.Instance.UpdateGameState(GameState.PlayerTurn);
+        _inGameUI.SetActive(true);
+        menuManager.GetComponent<TurnManager>().SearchUI();
     }
 
     public void SpawnHumanUnitRandom()
@@ -175,6 +186,7 @@ public class UnitManager : MonoBehaviour
                     melee.transform.position = spawnTileMelee.transform.position;
                     spawnTileMelee.occupiedUnit = melee;
                     melee.occupiedTile = spawnTileMelee;
+                    _humanUnitsObjects.Add((BaseHumanUnit)melee);
                     break;
                 case "tank":
                     var tank = Instantiate(tankHuman);
@@ -182,6 +194,7 @@ public class UnitManager : MonoBehaviour
                     tank.transform.position = spawnTileTank.transform.position;
                     spawnTileTank.occupiedUnit = tank;
                     tank.occupiedTile = spawnTileTank;
+                    _humanUnitsObjects.Add((BaseHumanUnit)tank);
                     break;
                 case "ranged":
                     var ranged = Instantiate(rangedHuman);
@@ -189,6 +202,7 @@ public class UnitManager : MonoBehaviour
                     ranged.transform.position = spawnTileRanged.transform.position;
                     spawnTileRanged.occupiedUnit = ranged;
                     ranged.occupiedTile = spawnTileRanged;
+                    _humanUnitsObjects.Add((BaseHumanUnit)ranged);
                     break;
             }
         }

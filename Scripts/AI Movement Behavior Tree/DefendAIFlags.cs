@@ -8,6 +8,7 @@ public class DefendAIFlags : NodeBT
 {
     private bool flagsInDanger;
 
+
     public DefendAIFlags(List<GameObject> flags)
     {
         var nearUnits = new List<BaseAIUnit>();

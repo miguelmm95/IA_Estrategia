@@ -27,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8127921557340382575}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -5.75, y: 3.6000009, z: 2}
   m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -122,4 +122,10 @@ MonoBehaviour:
   occupiedTile: {fileID: 0}
   player: 0
   type: 1
+  state: 0
+  movementRange: 0
+  attackRange: 0
+  totalHealth: 0
+  actualHealth: 0
+  damage: 0
   maxRange: 2

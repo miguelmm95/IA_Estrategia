@@ -6,8 +6,11 @@ using BehaviorTree;
 
 public class MoveToFlag : NodeBT
 {
+    private int totalUnits = 0;
+    private int movedUnits = 0;
     public MoveToFlag(Flag flag, List<BaseAIUnit> units)
     {
+        totalUnits = units.Count;
         Tile objectiveTile = new Tile();
 
         foreach (BaseAIUnit unit in units)
@@ -21,12 +24,20 @@ public class MoveToFlag : NodeBT
             lastTile.occupiedUnit = null;
             unit.occupiedTile = objectiveTile;
             unit.transform.position = objectiveTile.transform.position;
-
+            movedUnits++;
         }
     }
 
     public override NodeBTState Evaluate()
     {
+        if(movedUnits == totalUnits && totalUnits != 0)
+        {
+            object end = GetData("HasEnded");
+            if (end == null)
+            {
+                parent.parent.SetData("HasEnded", "sí");
+            }
+        }
         state = NodeBTState.SUCCESS;
         return state;
     }
