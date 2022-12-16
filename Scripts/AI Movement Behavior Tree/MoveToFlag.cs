@@ -8,24 +8,19 @@ public class MoveToFlag : NodeBT
 {
     private int totalUnits = 0;
     private int movedUnits = 0;
-    public MoveToFlag(Flag flag, List<BaseAIUnit> units)
+    public MoveToFlag(Flag flag, BaseAIUnit unit)
     {
-        totalUnits = units.Count;
         Tile objectiveTile = new Tile();
+        Tile lastTile = unit.occupiedTile;
 
-        foreach (BaseAIUnit unit in units)
+        if (!unit.occupiedTile.hasAFlag)
         {
-            Tile lastTile = unit.occupiedTile;
-
-            if (!unit.occupiedTile.hasAFlag)
-            {
-                objectiveTile = unit.moveTo(Grid.Instance.GetNeighboursUnit(unit.occupiedTile, unit.getRange(unit.type)),flag.flagPosition);
-            }
-            lastTile.occupiedUnit = null;
-            unit.occupiedTile = objectiveTile;
-            unit.transform.position = objectiveTile.transform.position;
-            movedUnits++;
+            objectiveTile = unit.moveTo(Grid.Instance.GetNeighboursUnit(unit.occupiedTile, unit.getRange(unit.type)),flag.flagPosition);
         }
+        lastTile.occupiedUnit = null;
+        unit.occupiedTile = objectiveTile;
+        unit.transform.position = objectiveTile.transform.position;
+        movedUnits++;
     }
 
     public override NodeBTState Evaluate()

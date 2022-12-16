@@ -9,9 +9,14 @@ public class DefendAIFlags : NodeBT
     private bool flagsInDanger;
 
 
-    public DefendAIFlags(List<GameObject> flags)
+    public DefendAIFlags(BaseAIUnit unit)
     {
-        var nearUnits = new List<BaseAIUnit>();
+
+        if (unit.state == State.AIDefending && unit._flagToDefend != null)
+        {
+            flagsInDanger = true;
+        }
+        /*var nearUnits = new List<BaseAIUnit>();
 
         foreach(GameObject flag in flags)
         {
@@ -19,7 +24,7 @@ public class DefendAIFlags : NodeBT
                 Grid.Instance.GetNearAIUnits(flag.GetComponent<Flag>().flagPosition, UnitManager._AIUnitsObjects);
                 flagsInDanger = true;
             }
-        }
+        }*/
     }
 
     public override NodeBTState Evaluate()

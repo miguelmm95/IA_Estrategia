@@ -16,12 +16,12 @@ public class AIPlayer : BehaviorTree.Tree
             //Si estan siendo atacadas, las dos unidades mas cercanas van a defender
             //El resto atacan
             new Sequence(new List<NodeBT>{
-                new DefendAIFlags(UnitManager._AIFlags),
-                //new RetreatToFlag(UnitManager._AIUnitsObjects),
+                new DefendAIFlags(this.GetComponent<BaseAIUnit>()),
+                new RetreatToFlag(this.GetComponent<BaseAIUnit>()),
             }),
             new Sequence(new List<NodeBT>
             {
-                new MoveToFlag(UnitManager.Instance.getRandomHumanFlag(), UnitManager._AIUnitsObjects),
+                new MoveToFlag(UnitManager.Instance.getRandomHumanFlag(), this.GetComponent<BaseAIUnit>()),
                 new EndAITurn(TurnManager._inGameUI, UnitManager._humanUnitsObjects)
             })
             

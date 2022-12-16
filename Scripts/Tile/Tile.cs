@@ -59,7 +59,7 @@ public class Tile : MonoBehaviour
         if(GameManager.Instance.State != GameState.PlayerTurn) return;
         if (occupiedUnit != null){
             lastTile = this;
-            if (occupiedUnit.player == Player.Human){
+            if (occupiedUnit.player == Player.Human && UnitManager.selectedHumanUnit == null){
 
                 if(occupiedUnit.state == State.humanUnselected)
                 {
@@ -69,7 +69,6 @@ public class Tile : MonoBehaviour
                     UnitManager.vecinosAntiguos.Clear();
 
                     UnitManager.vecinosAntiguos = UnitManager.selectedHumanUnit.UnitHighlight(occupiedUnit.GetMaxRange(occupiedUnit.type), this);
-                    //Debug.Log(occupiedUnit);
                 }
 
                 if(occupiedUnit.state == State.humanMoved)
@@ -109,6 +108,9 @@ public class Tile : MonoBehaviour
                 this.occupiedUnit = UnitManager.selectedHumanUnit;
                 lastTile.occupiedUnit.transform.position = this.transform.position;
                 lastTile.occupiedUnit = null;
+            }else if (UnitManager.selectedHumanUnit.state == State.humanAttacking)
+            {
+                UnitManager.selectedHumanUnit.state = State.humanMoved;
             }
 
             switch (DisplayUnit.SelectedUnit)
