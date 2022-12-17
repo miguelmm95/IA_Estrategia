@@ -8,9 +8,11 @@ public class MoveToFlag : NodeBT
 {
     private int totalUnits = 0;
     private int movedUnits = 0;
-    public MoveToFlag(Flag flag, BaseAIUnit unit)
+    public MoveToFlag(BaseAIUnit unit)
     {
-        Tile objectiveTile = new Tile();
+        if (GameManager.Instance.State != GameState.AITurn) return;
+
+        Tile objectiveTile = null;
         Tile lastTile = unit.occupiedTile;
 
         if(unit._flagToAttack == null)
@@ -20,12 +22,14 @@ public class MoveToFlag : NodeBT
 
         if (!unit.occupiedTile.hasAFlag)
         {
-            objectiveTile = unit.moveTo(Grid.Instance.GetNeighboursUnit(unit.occupiedTile, unit.getRange(unit.type)),flag.flagPosition);
+            Debug.Log("Voy a por la bandera");
+            objectiveTile = unit.moveTo(Grid.Instance.GetNeighboursUnit(unit.occupiedTile, unit.getRange(unit.type)), unit._flagToAttack);
+            Debug.Log(objectiveTile.name);
         }
         lastTile.occupiedUnit = null;
         unit.occupiedTile = objectiveTile;
         unit.transform.position = objectiveTile.transform.position;
-        movedUnits++;
+        TurnManager.contador++;
     }
 
     public override NodeBTState Evaluate()

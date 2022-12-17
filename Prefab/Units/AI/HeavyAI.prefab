@@ -157,7 +157,9 @@ MonoBehaviour:
   actualHealth: 0
   damage: 0
   _flagToDefend: {fileID: 0}
+  _flagToAttack: {fileID: 0}
   aiPlayer: {fileID: 3194252182441003476}
+  _playerTarget: {fileID: 0}
 --- !u!114 &3194252182441003476
 MonoBehaviour:
   m_ObjectHideFlags: 0

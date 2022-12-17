@@ -231,14 +231,14 @@ public class Grid : MonoBehaviour {
             float min = Mathf.Infinity;
             Flag _flag = null;
 
-            foreach (GameObject f in UnitManager._playerFlags)
+            foreach (Flag f in UnitManager._playerFlags)
             {
-                _flag = f.GetComponent<Flag>();
-                float distance = Vector3.Distance(unit.transform.position, _flag.transform.position);
+                float distance = Vector3.Distance(unit.transform.position, f.transform.position);
 
                 if (distance < min)
                 {
-                    cont++;
+					min = distance;
+					_flag = f;
                 }
             }
             unit._flagToAttack = _flag.flagPosition;
@@ -364,12 +364,12 @@ public class Grid : MonoBehaviour {
 
 					float gridFloat = (float)n.gridX;
 					float gridSizeFloat = (float)gridSizeX;
-					Debug.Log(gridFloat / gridSizeFloat);
+					//Debug.Log(gridFloat / gridSizeFloat);
 					if (gridFloat/gridSizeFloat < 0.3 && Random.Range(0, 30) == 0 && contBanJug < 3)
                     {
 						var banderaJugador = Instantiate(bandera_Jugador, n.worldPosition + new Vector3(0, 0, 2), Quaternion.identity);
 						banderaJugador.GetComponent<Flag>().flagPosition = tile;
-						UnitManager._playerFlags.Add(banderaJugador);
+						UnitManager._playerFlags.Add(banderaJugador.GetComponent<Flag>());
 						tile.hasAFlag = true;
 						contBanJug++;
                     }
@@ -377,7 +377,7 @@ public class Grid : MonoBehaviour {
                     {
 						var banderaIA = Instantiate(bandera_IA, n.worldPosition + new Vector3(0, 0, 2), Quaternion.identity);
 						banderaIA.GetComponent<Flag>().flagPosition = tile;
-						UnitManager._AIFlags.Add(banderaIA);
+						UnitManager._AIFlags.Add(banderaIA.GetComponent<Flag>());
 						tile.hasAFlag = true;
 						contBanIA++;
                     }
@@ -464,14 +464,13 @@ public class Grid : MonoBehaviour {
 		var tilesToDefend = new List<Tile>();
         var neighbours = new List<Tile>();
 
-        foreach (GameObject _flag in AIFlags)
+        foreach (Flag _flag in AIFlags)
 		{
-			var flag = _flag.GetComponent<Flag>();
-			neighbours = GetNeighboursUnit(flag.flagPosition);
+			neighbours = GetNeighboursUnit(_flag.flagPosition);
 
 			foreach(Tile n in neighbours)
 			{
-				if(n.posX <= flag.flagPosition.posX && n.isWalkeable && n.occupiedUnit == null)
+				if(n.posX <= _flag.flagPosition.posX && n.isWalkeable && n.occupiedUnit == null)
 				{
 					tilesToDefend.Add(n);
 				}

@@ -4,7 +4,28 @@ using UnityEngine;
 
 public class TurnManager : MonoBehaviour
 {
+    public static TurnManager Instance;
+
     public static GameObject _inGameUI;
+    public static int contador;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
+
+    private void Update()
+    {
+        if(contador == UnitManager._AIUnitsObjects.Count && UnitManager._AIUnitsObjects.Count != 0)
+        {
+            UnitManager.Instance.RestartHumanUnits();
+            UnitManager.selectedHumanUnit = null;
+            UnitManager.Instance.DeactivateAIUnits();
+            GameManager.Instance.UpdateGameState(GameState.PlayerTurn);
+            _inGameUI.SetActive(true);
+            contador = 0;
+        }
+    }
     public void SearchUI()
     {
         _inGameUI = GameObject.Find("InGameUI");
@@ -12,7 +33,10 @@ public class TurnManager : MonoBehaviour
     }
     public void EndPlayerTurn()
     {
-        GameManager.Instance.UpdateGameState(GameState.AITurn);
+        UnitManager.Instance.RestartAIUnits();
         _inGameUI.SetActive(false);
+        GameManager.Instance.UpdateGameState(GameState.AITurn);
+        UnitManager.Instance.ActiveAIUnits();
+
     }
 }

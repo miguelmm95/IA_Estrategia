@@ -11,8 +11,8 @@ public class UnitManager : MonoBehaviour
     public static List<BaseAIUnit> _AIUnitsObjects = new List<BaseAIUnit>();
     public static List<BaseHumanUnit> _humanUnitsObjects = new List<BaseHumanUnit>();
 
-    public static List<GameObject> _playerFlags = new List<GameObject>();
-    public static List<GameObject> _AIFlags = new List<GameObject>();
+    public static List<Flag> _playerFlags = new List<Flag>();
+    public static List<Flag> _AIFlags = new List<Flag>();
     
 
     public static List<Tile> vecinosAntiguos = new List<Tile>();
@@ -208,7 +208,7 @@ public class UnitManager : MonoBehaviour
         }
     }
 
-    public Flag getRandomHumanFlag()
+    /*public Flag getRandomHumanFlag()
     {
         GameObject _object = new GameObject();
 
@@ -218,7 +218,7 @@ public class UnitManager : MonoBehaviour
         }
 
         return _object.GetComponent<Flag>();
-    }
+    }*/
 
     public void manualAIActivation()
     {
@@ -232,10 +232,7 @@ public class UnitManager : MonoBehaviour
     {
         foreach (BaseAIUnit unit in _AIUnitsObjects)
         {
-            if (GameManager.Instance.State == GameState.AITurn)
-            {
-                unit.aiPlayer.enabled = true;
-            }
+            unit.aiPlayer.enabled = true;
         }
     }
 
@@ -243,10 +240,23 @@ public class UnitManager : MonoBehaviour
     {
         foreach (BaseAIUnit unit in _AIUnitsObjects)
         {
-            if (GameManager.Instance.State == GameState.AITurn)
-            {
-                unit.aiPlayer.enabled = false;
-            }
+            unit.aiPlayer.enabled = false;
+        }
+    }
+
+    public void RestartHumanUnits()
+    {
+        foreach(BaseHumanUnit unit in _humanUnitsObjects)
+        {
+            unit.state = State.humanUnselected;
+        }
+    }
+
+    public void RestartAIUnits()
+    {
+        foreach(BaseAIUnit unit in _AIUnitsObjects)
+        {
+            unit.state = State.AIMoving;
         }
     }
 }

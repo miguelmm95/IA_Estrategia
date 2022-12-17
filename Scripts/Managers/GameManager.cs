@@ -67,7 +67,7 @@ public class GameManager : MonoBehaviour
 
     private void HandleAITurn()
     {
-        UnitManager.Instance.ActiveAIUnits();
+        
     }
 
     private void HandlePlayerTurn()
