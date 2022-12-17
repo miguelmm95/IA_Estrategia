@@ -43,6 +43,7 @@ public class CheckNearEnemies : NodeBT
     {
         if (targetFound)
         {
+            parent.parent.SetData("Encontrado", "si");
             state = NodeBTState.SUCCESS;
             return state;
         }

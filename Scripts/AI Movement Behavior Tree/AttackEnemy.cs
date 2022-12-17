@@ -9,6 +9,9 @@ public class AttackEnemy : NodeBT
 {
     public AttackEnemy(BaseAIUnit unit)
     {
+        object data = GetData("Atacando");
+        if (data != "si") return;
+
         unit.Attack(unit.damage, unit._playerTarget);
         unit.state = State.AIWaiting;
 
@@ -20,6 +23,7 @@ public class AttackEnemy : NodeBT
 
     public override NodeBTState Evaluate()
     {
+        ClearData("Atacando");
         state = NodeBTState.SUCCESS;
         return state;
     }

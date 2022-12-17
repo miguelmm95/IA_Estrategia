@@ -12,7 +12,9 @@ public class MoveToEnemy : NodeBT
         List<Tile> movementTiles = Grid.Instance.GetNeighboursUnit(unit.occupiedTile, unit.getRange(unit.type));
         Tile lastTile = unit.occupiedTile;
         Tile newTile = null;
-        if(unit.state == State.AIAttacking)
+        object data = GetData("Encontrado");
+
+        if(unit.state == State.AIAttacking && data == "si")
         {
             foreach (Tile tile in movementTiles)
             {
@@ -60,6 +62,8 @@ public class MoveToEnemy : NodeBT
     {
         if (attack)
         {
+            parent.parent.SetData("Atacando", "si");
+            ClearData("Encontrado");
             state = NodeBTState.SUCCESS;
             return state;
         }

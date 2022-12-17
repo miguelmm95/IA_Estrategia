@@ -15,9 +15,8 @@ public class AIPlayer : BehaviorTree.Tree
 
         NodeBT root = new Selector(new List<NodeBT>
         {   
-            new MoveToFlag(this.GetComponent<BaseAIUnit>())
 
-            /*new Sequence(new List<NodeBT>{
+            new Sequence(new List<NodeBT>{
                 new DefendAIFlags(this.GetComponent<BaseAIUnit>()),
                 new RetreatToFlag(this.GetComponent<BaseAIUnit>()),
             }),
@@ -26,13 +25,8 @@ public class AIPlayer : BehaviorTree.Tree
                 new MoveToEnemy(this.GetComponent<BaseAIUnit>()),
                 new AttackEnemy(this.GetComponent<BaseAIUnit>())
             }),
+            new MoveToFlag(this.GetComponent<BaseAIUnit>())
 
-            new Sequence(new List<NodeBT>
-            {
-                new MoveToFlag(UnitManager.Instance.getRandomHumanFlag(), this.GetComponent<BaseAIUnit>()),
-                new EndAITurn(TurnManager._inGameUI, UnitManager._humanUnitsObjects)
-            })*/
-            
         });
 
         return root;
