@@ -33,8 +33,6 @@ public enum State
     humanAttacking = 3,
     humanWaiting = 4,
     AIMoving = 5,
-    AIMoved = 6,
-    AIDefending = 7,
-    AIAttacking = 8,
-    AIWaiting = 9
+    AIDefending = 6,
+    AIAttacking = 7
 }

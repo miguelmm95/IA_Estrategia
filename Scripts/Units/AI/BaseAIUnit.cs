@@ -8,9 +8,7 @@ public class BaseAIUnit : BaseUnit
     public float totalHealth, actualHealth, damage;
 
     public Tile _flagToDefend;
-    public Tile _flagToAttack;
     public AIPlayer aiPlayer;
-    public BaseHumanUnit _playerTarget;
 
     private void Awake()
     {
@@ -40,12 +38,7 @@ public class BaseAIUnit : BaseUnit
                 damage = 20;
                 break;
         }
-        Grid.Instance.GetNearFlagHuman(this);
-    }
 
-    public List<Tile> GetVision()
-    {
-        return Grid.Instance.GetNeighboursUnit(occupiedTile, movementRange + 1);
     }
 
     public int getRange(Type type)
