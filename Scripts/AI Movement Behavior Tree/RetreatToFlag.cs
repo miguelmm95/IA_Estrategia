@@ -8,13 +8,18 @@ public class RetreatToFlag : NodeBT
 {
     public RetreatToFlag(BaseAIUnit unit)
     {
-        Tile objectiveTile = new Tile();
-
+        Tile objectiveTile = null;
         Tile lastTile = unit.occupiedTile;
-        objectiveTile = unit.moveTo(Grid.Instance.GetNeighboursUnit(unit.occupiedTile, unit.getRange(unit.type)), unit._flagToDefend);
+        if(unit.state == State.AIDefending)
+        {
+            objectiveTile = unit.moveTo(Grid.Instance.GetNeighboursUnit(unit.occupiedTile, unit.getRange(unit.type)), unit._flagToDefend);
 
-        lastTile.occupiedUnit = null;
-        unit.occupiedTile = objectiveTile;
-        unit.transform.position = objectiveTile.transform.position;
+            lastTile.occupiedUnit = null;
+            unit.occupiedTile = objectiveTile;
+            objectiveTile.occupiedUnit = unit;
+            unit.transform.position = objectiveTile.transform.position;
+            unit.state = State.AIWaiting;
+        }
+        
     }
 }

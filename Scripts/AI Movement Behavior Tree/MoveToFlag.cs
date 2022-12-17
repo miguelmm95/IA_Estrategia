@@ -13,6 +13,11 @@ public class MoveToFlag : NodeBT
         Tile objectiveTile = new Tile();
         Tile lastTile = unit.occupiedTile;
 
+        if(unit._flagToAttack == null)
+        {
+            Grid.Instance.GetNearFlagHuman(unit);
+        }
+
         if (!unit.occupiedTile.hasAFlag)
         {
             objectiveTile = unit.moveTo(Grid.Instance.GetNeighboursUnit(unit.occupiedTile, unit.getRange(unit.type)),flag.flagPosition);
