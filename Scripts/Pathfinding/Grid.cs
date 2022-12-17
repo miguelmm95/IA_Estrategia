@@ -222,6 +222,30 @@ public class Grid : MonoBehaviour {
 		}
 	}
 
+	public void GetNearFlagHuman(BaseAIUnit unit)
+	{
+		int cont = 0;
+
+		while(cont != 1)
+		{
+			float min = Mathf.Infinity;
+			Flag _flag = null;
+
+			foreach (GameObject f in UnitManager._playerFlags)
+			{
+				_flag = f.GetComponent<Flag>();
+				float distance = Vector3.Distance(unit.transform.position, _flag.transform.position);
+
+				if(distance < min)
+				{
+					cont++;
+				}
+			}
+			unit._flagToAttack = _flag.flagPosition;
+			cont++;
+		}
+	}
+
     public List<Tile> GetNeighboursUnitAtack(Tile tile, int max)
     {
         List<Tile> neighbours = new List<Tile>();
