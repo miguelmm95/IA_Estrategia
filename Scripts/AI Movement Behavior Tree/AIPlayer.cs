@@ -14,16 +14,15 @@ public class AIPlayer : BehaviorTree.Tree
         NodeBT root = new Selector(new List<NodeBT>
         {   
             new Sequence(new List<NodeBT>{
-                new DefenseAI(this.GetComponent<BaseAIUnit>())
+                new DefendAIFlags(this.GetComponent<BaseAIUnit>()),
+                new RetreatToFlag(this.GetComponent<BaseAIUnit>()),
             }),
-            new Sequence(new List<NodeBT>{
-                new MoveToFlag(this.GetComponent<BaseAIUnit>())
-                //new AttackAI(this.GetComponent<BaseAIUnit>())
-            }),
-            new Sequence(new List<NodeBT>{
-                new AttackAI(this.GetComponent<BaseAIUnit>())
-            }),
-
+            /*new Sequence(new List<NodeBT>{
+                new CheckNearEnemies(this.GetComponent<BaseAIUnit>()),
+                new MoveToEnemy(this.GetComponent<BaseAIUnit>()),
+                new AttackEnemy(this.GetComponent<BaseAIUnit>())
+            }),*/
+            new MoveToFlag(this.GetComponent<BaseAIUnit>())
 
         });
 

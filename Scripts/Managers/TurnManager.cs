@@ -23,7 +23,7 @@ public class TurnManager : MonoBehaviour
             turnCounter++;
             UnitManager.Instance.RestartHumanUnits();
             UnitManager.selectedHumanUnit = null;
-            //UnitManager.Instance.DeactivateAIUnits();
+            UnitManager.Instance.DeactivateAIUnits();
             GameManager.Instance.UpdateGameState(GameState.PlayerTurn);
             _inGameUI.SetActive(true);
             contador = 0;
@@ -43,7 +43,7 @@ public class TurnManager : MonoBehaviour
         UnitManager.Instance.RestartAIUnits();
         _inGameUI.SetActive(false);
         GameManager.Instance.UpdateGameState(GameState.AITurn);
-        //UnitManager.Instance.ActiveAIUnits();
+        UnitManager.Instance.ActiveAIUnits();
 
 
     }

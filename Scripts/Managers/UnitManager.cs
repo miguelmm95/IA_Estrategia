@@ -234,7 +234,7 @@ public class UnitManager : MonoBehaviour
     {
         foreach (BaseAIUnit unit in _AIUnitsObjects)
         {
-            unit._mainRules.enabled = true;
+            unit.aiPlayer.enabled = true;
         }
     }
 
@@ -242,7 +242,7 @@ public class UnitManager : MonoBehaviour
     {
         foreach (BaseAIUnit unit in _AIUnitsObjects)
         {
-            unit._mainRules.enabled = false;
+            unit.aiPlayer.enabled = false;
         }
     }
 
@@ -258,10 +258,7 @@ public class UnitManager : MonoBehaviour
     {
         foreach(BaseAIUnit unit in _AIUnitsObjects)
         {
-            if (unit.state == State.AIWaiting)
-            {
-                unit.state = State.AIMoving;
-            }
+            unit.state = State.AIMoving;
         }
     }
 }

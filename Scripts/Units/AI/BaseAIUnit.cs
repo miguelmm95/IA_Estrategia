@@ -9,9 +9,9 @@ public class BaseAIUnit : BaseUnit
 
     public Flag _flagToDefend;
     public Flag _flagToAttack;
-    //public AIPlayer aiPlayer;
-    public Main _mainRules;
+    public AIPlayer aiPlayer;
     public BaseHumanUnit _playerTarget;
+    public int turnsInFlag;
 
     private void Awake()
     {

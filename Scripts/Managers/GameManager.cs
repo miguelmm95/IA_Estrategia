@@ -70,11 +70,7 @@ public class GameManager : MonoBehaviour
 
     private void HandleAITurn()
     {
-        foreach (BaseAIUnit unit in UnitManager._AIUnitsObjects)
-        {
-            var _main = unit.GetComponent<Main>();
-            _main.TurnAI(unit);
-        }
+        
     }
 
     private void HandlePlayerTurn()

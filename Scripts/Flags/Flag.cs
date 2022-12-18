@@ -24,6 +24,8 @@ public class Flag : MonoBehaviour
             {
                 if (tile.occupiedUnit!= null && tile.occupiedUnit.player == Player.Human)
                 {
+                    Debug.Log("Estoy en la bandera!");
+                    Debug.Log(turno);
                     if (turno == 0)
                     {
                         turno = TurnManager.turnCounter;
@@ -58,7 +60,6 @@ public class Flag : MonoBehaviour
             if (tile.occupiedUnit != null && tile.occupiedUnit.player == Player.Human)
             {
                 Grid.Instance.GetNearAIUnits(this, UnitManager._AIUnitsObjects);
-                beingAttacked = true;
             }
         }
     }
