@@ -9,18 +9,20 @@ public class MoveToEnemy : NodeBT
     public bool attack = false;
     public MoveToEnemy(BaseAIUnit unit)
     {
-        List<Tile> movementTiles = Grid.Instance.GetNeighboursUnit(unit.occupiedTile, unit.getRange(unit.type));
+        List<Tile> movementTiles = Grid.Instance.GetNeighboursAIUnit(unit.occupiedTile, unit.getRange(unit.type));
         Tile lastTile = unit.occupiedTile;
         Tile newTile = null;
         object data = GetData("Encontrado");
 
         if(unit.state == State.AIAttacking && data == "si")
         {
+            Debug.Log("ESTOY AQUI");
             foreach (Tile tile in movementTiles)
             {
                 if (tile.occupiedUnit == unit._playerTarget)
                 {
                     attack = true;
+                    Debug.Log("Le voy a atacar");
                 }
             }
 
@@ -53,6 +55,8 @@ public class MoveToEnemy : NodeBT
                 unit.occupiedTile = newTile;
                 newTile.occupiedUnit = unit;
                 unit.state = State.AIWaiting;
+                TurnManager.contador++;
+                Debug.Log(TurnManager.contador);
             }
         }
         

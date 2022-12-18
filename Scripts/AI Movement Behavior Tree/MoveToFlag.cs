@@ -10,26 +10,27 @@ public class MoveToFlag : NodeBT
     private int movedUnits = 0;
     public MoveToFlag(BaseAIUnit unit)
     {
-        if (GameManager.Instance.State != GameState.AITurn) return;
-
-        Tile objectiveTile = null;
-        Tile lastTile = unit.occupiedTile;
-
-        if(unit._flagToAttack == null)
+        if (unit.state == State.AIMoving)
         {
-            Grid.Instance.GetNearFlagHuman(unit);
-        }
+            Tile objectiveTile = null;
+            Tile lastTile = unit.occupiedTile;
 
-        if (!unit.occupiedTile.hasAFlag)
-        {
-            Debug.Log("Voy a por la bandera");
-            objectiveTile = unit.moveTo(Grid.Instance.GetNeighboursUnit(unit.occupiedTile, unit.getRange(unit.type)), unit._flagToAttack);
-            Debug.Log(objectiveTile.name);
+            if (unit._flagToAttack == null)
+            {
+                Grid.Instance.GetNearFlagHuman(unit);
+            }
+
+            if (!unit.occupiedTile.hasAFlag)
+            {
+                objectiveTile = unit.moveTo(Grid.Instance.GetNeighboursUnit(unit.occupiedTile, unit.getRange(unit.type)), unit._flagToAttack);
+            }
+            lastTile.occupiedUnit = null;
+            unit.occupiedTile = objectiveTile;
+            objectiveTile.occupiedUnit = unit;
+            unit.transform.position = objectiveTile.transform.position;
+            TurnManager.contador++;
+            Debug.Log(TurnManager.contador);
         }
-        lastTile.occupiedUnit = null;
-        unit.occupiedTile = objectiveTile;
-        unit.transform.position = objectiveTile.transform.position;
-        TurnManager.contador++;
     }
 
     public override NodeBTState Evaluate()

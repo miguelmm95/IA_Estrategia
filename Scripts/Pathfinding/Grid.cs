@@ -197,7 +197,38 @@ public class Grid : MonoBehaviour {
         return neighbours;
     }
 
-	public void GetNearAIUnits(Tile flag, List<BaseAIUnit> units)
+	public List<Tile> GetNeighboursAIUnit(Tile tile, int max)
+	{
+        List<Tile> neighbours = new List<Tile>();
+
+        for (int x = -max; x <= max; x++)
+        {
+            for (int y = -max; y <= max; y++)
+            {
+                if (x == 0 && y == 0)
+                    continue;
+                else if (Mathf.Abs(x) == max && Mathf.Abs(y) == max)
+                {
+                    continue;
+                }
+                else
+                {
+                    int checkX = tile.posX + x;
+                    int checkY = tile.posY + y;
+
+                    if (checkX >= 0 && checkX < gridSizeX && checkY >= 0 && checkY < gridSizeY && gridTiles[checkX, checkY].isWalkeable)
+                    {
+                        neighbours.Add(gridTiles[checkX, checkY]);
+                    }
+                }
+            }
+        }
+
+        return neighbours;
+    }
+
+
+    public void GetNearAIUnits(Tile flag, List<BaseAIUnit> units)
 	{
 		int cont = 0;
 

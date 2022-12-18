@@ -19,6 +19,8 @@ public class AttackEnemy : NodeBT
         {
             unit._playerTarget = null;
         }
+        TurnManager.contador++;
+        Debug.Log(TurnManager.contador);
     }
 
     public override NodeBTState Evaluate()

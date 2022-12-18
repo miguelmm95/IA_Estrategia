@@ -11,11 +11,8 @@ public class AIPlayer : BehaviorTree.Tree
     }
     protected override NodeBT SetUpTree(){
 
-
-
         NodeBT root = new Selector(new List<NodeBT>
         {   
-
             new Sequence(new List<NodeBT>{
                 new DefendAIFlags(this.GetComponent<BaseAIUnit>()),
                 new RetreatToFlag(this.GetComponent<BaseAIUnit>()),

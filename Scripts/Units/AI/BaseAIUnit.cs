@@ -43,9 +43,9 @@ public class BaseAIUnit : BaseUnit
 
     }
 
-    public List<Tile> GetVision()
+    public List<Tile> GetVision(Tile actualTile, int range)
     {
-        return Grid.Instance.GetNeighboursUnit(occupiedTile, movementRange + 1);
+        return Grid.Instance.GetNeighboursUnit(actualTile, range + 1);
     }
 
     public int getRange(Type type)

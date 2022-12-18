@@ -16,7 +16,7 @@ public class TurnManager : MonoBehaviour
 
     private void Update()
     {
-        if(contador == UnitManager._AIUnitsObjects.Count && UnitManager._AIUnitsObjects.Count != 0)
+        if(contador >= UnitManager._AIUnitsObjects.Count && UnitManager._AIUnitsObjects.Count != 0)
         {
             UnitManager.Instance.RestartHumanUnits();
             UnitManager.selectedHumanUnit = null;
