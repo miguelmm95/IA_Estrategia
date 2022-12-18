@@ -114,5 +114,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2d3b241f0f6ae345aa5eae668357956, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  neighbours: []
   flagPosition: {fileID: 0}
   beingAttacked: 0
+  unitAttackingFlag: []

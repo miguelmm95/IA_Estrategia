@@ -29,6 +29,8 @@ public class Tile : MonoBehaviour
     public BaseUnit occupiedUnit;
     public GameObject unit;
 
+    public static int contadorListaUnidades;
+
     public void Init(bool isOffset)
     {
         _renderer.color = isOffset ? _offsetColor : _baseColor;
@@ -55,8 +57,57 @@ public class Tile : MonoBehaviour
     }
 
     public void OnMouseDown(){
+        if (GameManager.Instance.State == GameState.UnitPlacement)
+        {
+            contadorListaUnidades = UnitManager._playerUnits.Count;
+            switch (DisplayUnit.SelectedUnit)
+            {
+                case "melee":
+                    if (UnitManager._playerUnits.Contains("melee") && this.isWalkeable)
+                    {
 
-        if(GameManager.Instance.State != GameState.PlayerTurn) return;
+                        var unit =Instantiate(Melee, new Vector3(this.transform.position.x, this.transform.position.y, 0), Quaternion.identity);
+                        UnitManager._playerUnits.Remove("melee");
+                        UnitManager._humanUnitsObjects.Add((BaseHumanUnit)unit);
+                        this.occupiedUnit = unit;
+                        unit.occupiedTile = this;
+                        unit.state = State.humanUnselected;
+
+                    }
+                    break;
+                case "tank":
+                    if (UnitManager._playerUnits.Contains("tank") && this.isWalkeable)
+                    {
+                        var unit = Instantiate(Tank, new Vector3(this.transform.position.x, this.transform.position.y, 0), Quaternion.identity);
+                        UnitManager._humanUnitsObjects.Add((BaseHumanUnit)unit);
+                        UnitManager._playerUnits.Remove("tank");
+                        this.occupiedUnit = unit;
+                        unit.occupiedTile = this;
+                        unit.state = State.humanUnselected;
+
+                    }
+                    break;
+                case "ranged":
+                    if (UnitManager._playerUnits.Contains("ranged") && this.isWalkeable)
+                    {
+                        var unit =Instantiate(Ranged, new Vector3(this.transform.position.x, this.transform.position.y, 0), Quaternion.identity);
+                        UnitManager._humanUnitsObjects.Add((BaseHumanUnit)unit);
+                        UnitManager._playerUnits.Remove("ranged");
+                        this.occupiedUnit = unit;
+                        unit.occupiedTile = this;
+                        unit.state = State.humanUnselected;
+
+                    }
+                    break;
+                default:
+                    break;
+            }
+            if (UnitManager.contadorUnidades == UnitManager._humanUnitsObjects.Count)
+            {
+                GameManager.Instance.UpdateGameState(GameState.PlayerTurn);
+            }
+        }
+        if (GameManager.Instance.State != GameState.PlayerTurn) return;
         if (occupiedUnit != null){
             lastTile = this;
             if (occupiedUnit.player == Player.Human && UnitManager.selectedHumanUnit == null){
@@ -101,6 +152,7 @@ public class Tile : MonoBehaviour
         }
         else
         {
+
             if (unitCanMoveTo)
             {
                 UnitManager.selectedHumanUnit.occupiedTile = this;
@@ -112,42 +164,8 @@ public class Tile : MonoBehaviour
             {
                 UnitManager.selectedHumanUnit.state = State.humanMoved;
             }
-
-            switch (DisplayUnit.SelectedUnit)
-            {
-                case "melee":
-                    if (UnitManager._playerUnits.Contains("melee") && this.isWalkeable)
-                    {
-                        Instantiate(Melee, new Vector3(this.transform.position.x, this.transform.position.y, 0), Quaternion.identity);
-                        UnitManager._playerUnits.Remove("melee");
-                        this.occupiedUnit = Melee;
-                        this.occupiedUnit.player = Player.Human;
-                        this.occupiedUnit.type = Type.Infantry;
-                    }
-                    break;
-                case "tank":
-                    if (UnitManager._playerUnits.Contains("tank") && this.isWalkeable)
-                    {
-                        Instantiate(Tank, new Vector3(this.transform.position.x, this.transform.position.y, 0), Quaternion.identity);
-                        UnitManager._playerUnits.Remove("tank");
-                        this.occupiedUnit = Tank;
-                        this.occupiedUnit.player = Player.Human;
-                        this.occupiedUnit.type = Type.Heavy;
-                    }
-                    break;
-                case "ranged":
-                    if (UnitManager._playerUnits.Contains("ranged") && this.isWalkeable)
-                    {
-                        Instantiate(Ranged, new Vector3(this.transform.position.x, this.transform.position.y, 0), Quaternion.identity);
-                        UnitManager._playerUnits.Remove("ranged");
-                        this.occupiedUnit = Ranged;
-                        this.occupiedUnit.player = Player.Human;
-                        this.occupiedUnit.type = Type.Ranged;
-                    }
-                    break;
-                default:
-                    break;
-            }
+            
+            
             if(UnitManager.vecinosAntiguos.Count != 0)
             {
                 UnitManager.selectedHumanUnit.UnitHighlightDisable(UnitManager.vecinosAntiguos);
@@ -156,6 +174,7 @@ public class Tile : MonoBehaviour
             UnitManager.selectedHumanUnit = null;
             UnitManager.vecinosAntiguos.Clear();
         }
+
     }
 
     public void SetUnitHighlight()

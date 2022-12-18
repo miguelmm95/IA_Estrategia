@@ -32,6 +32,7 @@ public class DefendAIFlags : NodeBT
         if(flagsInDanger)
         {
             state = NodeBTState.SUCCESS;
+            parent.parent.SetData("Defendiendo", "si");
             return state;
         }
         state = NodeBTState.FAILURE;

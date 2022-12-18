@@ -33,6 +33,9 @@ public class GameManager : MonoBehaviour
             case GameState.GenerateGrid:
                 Grid.Instance.StartGrid();
                 break;
+            case GameState.UnitPlacement:
+
+                break;
             case GameState.SpawnAIUnits:
                 UnitManager.Instance.SpawnAIUnitsDefensive();
                 break;
@@ -85,6 +88,7 @@ public enum GameState
 {
     PlayerShop,
     GenerateGrid,
+    UnitPlacement,
     SpawnAIUnits,
     PlayerTurn,
     AITurn,

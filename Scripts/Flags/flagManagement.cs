@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class flagManagement : MonoBehaviour
 {
-    private List<Tile> neighbours;
+    
     private BaseUnit unit;
     private int turno;
     public GameObject bandera_IA;
     public GameObject bandera_Jugador;
-    public Tile tileFlag;
+    
     private Transform positionFlag;
 
     // Start is called before the first frame update
@@ -21,8 +21,8 @@ public class flagManagement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        neighbours = Grid.Instance.GetNeighboursUnit(tileFlag);
-        foreach (Tile n in neighbours)
+        
+        /*foreach (Tile n in )
         {
             if (n.occupiedUnit != null)
             {
@@ -33,7 +33,7 @@ public class flagManagement : MonoBehaviour
             {
                 unit = null;
             }
-        }
+        }*/
 
         switch (this.tag)
         {
@@ -64,7 +64,7 @@ public class flagManagement : MonoBehaviour
     {
         if (collision.tag == "Tile_Walkable")
         {
-            tileFlag = collision.transform.gameObject.GetComponent<Tile>();
+            //tileFlag = collision.transform.gameObject.GetComponent<Tile>();
         }
     }
 

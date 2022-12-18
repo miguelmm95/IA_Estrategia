@@ -228,7 +228,7 @@ public class Grid : MonoBehaviour {
     }
 
 
-    public void GetNearAIUnits(Tile flag, List<BaseAIUnit> units)
+    public void GetNearAIUnits(Flag flag, List<BaseAIUnit> units)
 	{
 		int cont = 0;
 
@@ -272,7 +272,8 @@ public class Grid : MonoBehaviour {
 					_flag = f;
                 }
             }
-            unit._flagToAttack = _flag.flagPosition;
+            unit._flagToAttack = _flag;
+			_flag.unitAttackingFlag.Add(unit);
             cont++;
         }
     }
@@ -402,6 +403,7 @@ public class Grid : MonoBehaviour {
 						banderaJugador.GetComponent<Flag>().flagPosition = tile;
 						UnitManager._playerFlags.Add(banderaJugador.GetComponent<Flag>());
 						tile.hasAFlag = true;
+						tile.isWalkeable = false;
 						contBanJug++;
                     }
                     else if (gridFloat / gridSizeFloat > 0.7 && Random.Range(0, 30) == 0 && contBanIA < 3)
@@ -410,6 +412,7 @@ public class Grid : MonoBehaviour {
 						banderaIA.GetComponent<Flag>().flagPosition = tile;
 						UnitManager._AIFlags.Add(banderaIA.GetComponent<Flag>());
 						tile.hasAFlag = true;
+						tile.isWalkeable = false;
 						contBanIA++;
                     }
                 }

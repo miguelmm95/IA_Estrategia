@@ -8,6 +8,7 @@ public class BaseUnit : MonoBehaviour
     public Player player;
     public Type type;
     public State state;
+    public int turnsInFlag;
 
     public int GetMaxRange(Type unit)
     {

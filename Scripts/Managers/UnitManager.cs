@@ -29,6 +29,8 @@ public class UnitManager : MonoBehaviour
     [SerializeField] private GameObject _inGameUI;
     [SerializeField] private GameObject menuManager;
 
+    public static int contadorUnidades;
+
     private void Awake()
     {
         Instance = this;
@@ -167,8 +169,8 @@ public class UnitManager : MonoBehaviour
                     break;
             }
         }
-        SpawnHumanUnitRandom();
-        GameManager.Instance.UpdateGameState(GameState.PlayerTurn);
+        //SpawnHumanUnitRandom();
+        GameManager.Instance.UpdateGameState(GameState.UnitPlacement);
         _inGameUI.SetActive(true);
         menuManager.GetComponent<TurnManager>().SearchUI();
     }

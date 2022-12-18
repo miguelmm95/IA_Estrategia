@@ -7,5 +7,6 @@ public class Test : MonoBehaviour
     public void ChangeState()
     {
         GameManager.Instance.UpdateGameState(GameState.GenerateGrid);
+
     }
 }

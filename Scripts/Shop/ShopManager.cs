@@ -80,7 +80,7 @@ public class ShopManager : MonoBehaviour
             MoneyTxt.text = "Money: " + Money.ToString();
             Quantity[ItemNames[ButtonRef.GetComponent<button>().ID]] += 1;
             Last = ItemNames[ButtonRef.GetComponent<button>().ID];
-            Debug.Log(Last);
+            UnitManager.contadorUnidades++;
             UnitManager._playerUnits.Add(Last);
             Round++;
             IAShop(Last, r);

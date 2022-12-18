@@ -10,9 +10,12 @@ public class RetreatToFlag : NodeBT
     {
         Tile objectiveTile = null;
         Tile lastTile = unit.occupiedTile;
-        if(unit.state == State.AIDefending)
+
+        object data = GetData("Defendiendo");
+
+        if (unit.state == State.AIDefending && data == "si")
         {
-            objectiveTile = unit.moveTo(Grid.Instance.GetNeighboursUnit(unit.occupiedTile, unit.getRange(unit.type)), unit._flagToDefend);
+            objectiveTile = unit.moveTo(Grid.Instance.GetNeighboursUnit(unit.occupiedTile, unit.getRange(unit.type)), unit._flagToDefend.flagPosition);
 
             lastTile.occupiedUnit = null;
             unit.occupiedTile = objectiveTile;
@@ -21,5 +24,11 @@ public class RetreatToFlag : NodeBT
             unit.state = State.AIWaiting;
         }
         
+    }
+    public override NodeBTState Evaluate()
+    {
+         ClearData("Defendiendo");
+         state = NodeBTState.SUCCESS;
+         return state;
     }
 }
