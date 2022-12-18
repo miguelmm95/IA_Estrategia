@@ -12,7 +12,7 @@ public class RetreatToFlag : NodeBT
         Tile lastTile = unit.occupiedTile;
         if(unit.state == State.AIDefending)
         {
-            objectiveTile = unit.moveTo(Grid.Instance.GetNeighboursUnit(unit.occupiedTile, unit.getRange(unit.type)), unit._flagToDefend);
+            objectiveTile = unit.moveTo(Grid.Instance.GetNeighboursUnit(unit.occupiedTile, unit.getRange(unit.type)), unit._flagToDefend.flagPosition);
 
             lastTile.occupiedUnit = null;
             unit.occupiedTile = objectiveTile;

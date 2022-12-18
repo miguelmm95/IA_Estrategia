@@ -7,13 +7,16 @@ public class BaseAIUnit : BaseUnit
     public int movementRange, attackRange;
     public float totalHealth, actualHealth, damage;
 
-    public Tile _flagToDefend;
-    public Tile _flagToAttack;
+    public Flag _flagToDefend;
+    public Flag _flagToAttack;
     public AIPlayer aiPlayer;
     public BaseHumanUnit _playerTarget;
+    public int turnsInFlag;
 
     private void Awake()
     {
+        turnsInFlag = 0;
+
         state = State.AIMoving;
 
         switch (type)

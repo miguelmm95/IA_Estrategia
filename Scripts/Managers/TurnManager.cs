@@ -8,16 +8,19 @@ public class TurnManager : MonoBehaviour
 
     public static GameObject _inGameUI;
     public static int contador;
+    public static int turnCounter;
 
     private void Awake()
     {
         Instance = this;
+        turnCounter = 1;
     }
 
     private void Update()
     {
         if(contador >= UnitManager._AIUnitsObjects.Count && UnitManager._AIUnitsObjects.Count != 0)
         {
+            turnCounter++;
             UnitManager.Instance.RestartHumanUnits();
             UnitManager.selectedHumanUnit = null;
             UnitManager.Instance.DeactivateAIUnits();
