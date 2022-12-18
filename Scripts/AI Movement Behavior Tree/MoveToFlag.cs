@@ -9,10 +9,15 @@ public class MoveToFlag : NodeBT
     private int totalUnits = 0;
     private int movedUnits = 0;
     private int turn;
+
+    public bool isMoving = false;
     public MoveToFlag(BaseAIUnit unit)
     {
+        object data = GetData("Defendiendo");
         if (unit.state == State.AIMoving)
         {
+            isMoving = true;
+
             Tile objectiveTile = null;
             Tile lastTile = unit.occupiedTile;
 
@@ -24,9 +29,6 @@ public class MoveToFlag : NodeBT
 
             if (unit._flagToAttack.CheckUnit(unit))
             {
-
-                Debug.Log(turn);
-                //unit.state = State.AIWaiting;
                 if (unit.turnsInFlag == 0)
                 {
                     unit.turnsInFlag = TurnManager.turnCounter;
@@ -43,6 +45,7 @@ public class MoveToFlag : NodeBT
                     }
                 }
                 TurnManager.contador++;
+                unit.state = State.AIMoved;
             }
 
             else
@@ -54,7 +57,7 @@ public class MoveToFlag : NodeBT
                 objectiveTile.occupiedUnit = unit;
                 unit.transform.position = objectiveTile.transform.position;
                 TurnManager.contador++;
-                //Debug.Log(TurnManager.contador);
+                unit.state = State.AIMoved;
             }
 
         }
@@ -62,15 +65,16 @@ public class MoveToFlag : NodeBT
 
     public override NodeBTState Evaluate()
     {
-        if(movedUnits == totalUnits && totalUnits != 0)
+        if(isMoving)
         {
-            object end = GetData("HasEnded");
-            if (end == null)
-            {
-                parent.parent.SetData("HasEnded", "sí");
-            }
+            Debug.Log("Estoy moviendome");
+            parent.parent.SetData("Moviendo","si");
+            ClearData("Defendiendo");
+            state = NodeBTState.SUCCESS;
+            return state;
         }
-        state = NodeBTState.SUCCESS;
+        Debug.Log("No estoy moviendome");
+        state = NodeBTState.FAILURE;
         return state;
     }
 }

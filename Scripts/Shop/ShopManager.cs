@@ -130,6 +130,5 @@ public class ShopManager : MonoBehaviour
                     break;
             }
         }
-        Debug.Log(UnitManager._AIUnits.Count);
     }
 }
