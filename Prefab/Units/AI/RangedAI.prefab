@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 8184171559185275759}
   - component: {fileID: 8562554816016724707}
   - component: {fileID: -5815692645003979113}
+  - component: {fileID: 5337971968855186507}
   m_Layer: 0
   m_Name: RangedAI
   m_TagString: Ranged
@@ -151,6 +152,7 @@ MonoBehaviour:
   player: 1
   type: 2
   state: 0
+  turnsInFlag: 0
   movementRange: 0
   attackRange: 0
   totalHealth: 0
@@ -158,7 +160,7 @@ MonoBehaviour:
   damage: 0
   _flagToDefend: {fileID: 0}
   _flagToAttack: {fileID: 0}
-  aiPlayer: {fileID: -5815692645003979113}
+  _mainRules: {fileID: 0}
   _playerTarget: {fileID: 0}
 --- !u!114 &-5815692645003979113
 MonoBehaviour:
@@ -170,5 +172,17 @@ MonoBehaviour:
   m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0638c53a55a98f840b5fdbb939219bd7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5337971968855186507
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8184171559185275754}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d408d419cf3743047801885080c8669c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

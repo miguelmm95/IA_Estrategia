@@ -241,13 +241,13 @@ public class Grid : MonoBehaviour {
 			{
 				float distance = Vector3.Distance(flag.transform.position, unit.transform.position);
 
-				if(distance < min && unit.state != State.AIDefending)
+				if(distance < min && unit.state != State.AIRetire)
 				{
 					_unit = unit;
 					min = distance;
 				}
 			}
-			_unit.state = State.AIDefending;
+			_unit.state = State.AIRetire;
 			_unit._flagToDefend = flag;
 			cont++;
 		}

@@ -2,18 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-using BehaviorTree;
-
-public class MoveToFlag : NodeBT
+public class Movimiento : MonoBehaviour
 {
+    public static Movimiento Instance;
     private int totalUnits = 0;
     private int movedUnits = 0;
     private int turn;
 
     public bool isMoving = false;
-    public MoveToFlag(BaseAIUnit unit)
+
+    private void Awake()
     {
-        object data = GetData("Defendiendo");
+        Instance = this;
+    }
+    public void MovimientoAI(BaseAIUnit unit)
+    {
         if (unit.state == State.AIMoving)
         {
             isMoving = true;
@@ -61,20 +64,5 @@ public class MoveToFlag : NodeBT
             }
 
         }
-    }
-
-    public override NodeBTState Evaluate()
-    {
-        if(isMoving)
-        {
-            Debug.Log("Estoy moviendome");
-            parent.parent.SetData("Moviendo","si");
-            ClearData("Defendiendo");
-            state = NodeBTState.SUCCESS;
-            return state;
-        }
-        Debug.Log("No estoy moviendome");
-        state = NodeBTState.FAILURE;
-        return state;
     }
 }
