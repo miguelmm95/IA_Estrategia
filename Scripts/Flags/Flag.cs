@@ -49,6 +49,10 @@ public class Flag : MonoBehaviour
                         }
                         unitAIDefendingFlag.Clear();
                         turno = 0;
+                        if (UnitManager._AIFlags.Count == 0)
+                        {
+                            GameManager.Instance.UpdateGameState(GameState.Victory);
+                        }
                     }
                 }
             }

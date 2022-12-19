@@ -23,6 +23,8 @@ public class UnitManager : MonoBehaviour
     public InfantryHuman meleeHuman;
     public HeavyHuman tankHuman;
     public RangedHuman rangedHuman;
+    public Flag flagHuman;
+    public Flag flagAI;
 
     public static BaseHumanUnit selectedHumanUnit;
 
@@ -85,6 +87,8 @@ public class UnitManager : MonoBehaviour
             }
         }
         SpawnHumanUnitRandom();
+        SpawnAIFlag();
+        SpawnHumanFlag();
         GameManager.Instance.UpdateGameState(GameState.PlayerTurn);
         _inGameUI.SetActive(true);
         menuManager.GetComponent<TurnManager>().SearchUI();
@@ -127,9 +131,12 @@ public class UnitManager : MonoBehaviour
                     break;
             }
         }
+        SpawnAIFlag();
+        SpawnHumanFlag();
         GameManager.Instance.UpdateGameState(GameState.UnitPlacement);
         _inGameUI.SetActive(true);
         menuManager.GetComponent<TurnManager>().SearchUI();
+
     }
 
     public void SpawnAIUnitsDefensive()
@@ -170,6 +177,8 @@ public class UnitManager : MonoBehaviour
             }
         }
         //SpawnHumanUnitRandom();
+        SpawnAIFlag();
+        SpawnHumanFlag();
         GameManager.Instance.UpdateGameState(GameState.UnitPlacement);
         _inGameUI.SetActive(true);
         menuManager.GetComponent<TurnManager>().SearchUI();
@@ -210,17 +219,34 @@ public class UnitManager : MonoBehaviour
         }
     }
 
-    /*public Flag getRandomHumanFlag()
+
+    public void SpawnHumanFlag()
     {
-        GameObject _object = new GameObject();
-
-        if (_playerFlags.Count != 0)
+        for (int i = 0; i < 3; i++)
         {
-            _object = _playerFlags[Random.Range(0, _playerFlags.Count)];
+            var flag = Instantiate(flagHuman);
+            var spawnTile = Grid.Instance.GetFlagHumanSpawnTile();
+            flag.transform.position = spawnTile.transform.position;
+            spawnTile.hasAFlag = true;
+            spawnTile.isWalkeable = false;
+            UnitManager._playerFlags.Add(flag);
+            flag.flagPosition = spawnTile;
         }
+    }
 
-        return _object.GetComponent<Flag>();
-    }*/
+    public void SpawnAIFlag()
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            var flag = Instantiate(flagAI);
+            var spawnTile = Grid.Instance.GetFlagAISpawnTile();
+            flag.transform.position = spawnTile.transform.position;
+            spawnTile.hasAFlag = true;
+            spawnTile.isWalkeable = false;
+            UnitManager._AIFlags.Add(flag);
+            flag.flagPosition = spawnTile;
+        }
+    }
 
     public void manualAIActivation()
     {

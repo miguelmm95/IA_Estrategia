@@ -22,8 +22,7 @@ public class Grid : MonoBehaviour {
 	public GameObject tile_nonWalkable;
 	Node[,] grid;
 	[HideInInspector] public Tile[,] gridTiles;
-	public GameObject bandera_IA;
-	public GameObject bandera_Jugador;
+
 	public int probabilidad;
 
     private int contBanIA = 0;
@@ -258,7 +257,10 @@ public class Grid : MonoBehaviour {
 	public void GetNearFlagHuman(BaseAIUnit unit)
 	{
         int cont = 0;
-
+        if (UnitManager._playerFlags.Count == 0)
+        {
+			return;
+        }
         while (cont != 1)
         {
             float min = Mathf.Infinity;
@@ -395,28 +397,6 @@ public class Grid : MonoBehaviour {
 					
 					var isOffset = (n.gridX % 2 == 0 && n.gridY % 2 != 0) || (n.gridX % 2 != 0 && n.gridY % 2 == 0);
 					tile.Init(isOffset);
-
-					float gridFloat = (float)n.gridX;
-					float gridSizeFloat = (float)gridSizeX;
-					//Debug.Log(gridFloat / gridSizeFloat);
-					if (gridFloat/gridSizeFloat < 0.3 && Random.Range(0, 30) == 0 && contBanJug < 3)
-                    {
-						var banderaJugador = Instantiate(bandera_Jugador, n.worldPosition + new Vector3(0, 0, 2), Quaternion.identity);
-						banderaJugador.GetComponent<Flag>().flagPosition = tile;
-						UnitManager._playerFlags.Add(banderaJugador.GetComponent<Flag>());
-						tile.hasAFlag = true;
-						tile.isWalkeable = false;
-						contBanJug++;
-                    }
-                    else if (gridFloat / gridSizeFloat > 0.7 && Random.Range(0, 30) == 0 && contBanIA < 3)
-                    {
-						var banderaIA = Instantiate(bandera_IA, n.worldPosition + new Vector3(0, 0, 2), Quaternion.identity);
-						banderaIA.GetComponent<Flag>().flagPosition = tile;
-						UnitManager._AIFlags.Add(banderaIA.GetComponent<Flag>());
-						tile.hasAFlag = true;
-						tile.isWalkeable = false;
-						contBanIA++;
-                    }
                 }
 			}
 		}
@@ -493,6 +473,48 @@ public class Grid : MonoBehaviour {
 		return tile;
 	}
 
+	public Tile GetFlagAISpawnTile()
+	{
+		var tile = new Tile();
+		int indexX = 0;
+		int indexY = 0;
+
+		while (true)
+		{
+			Debug.Log(3 * gridSizeX / 4);
+			Debug.Log(gridSizeX);
+			indexX = Random.Range(gridSizeX / 2 + gridSizeX / 3, gridSizeX);
+		   indexY = Random.Range(0, gridSizeY - 1);
+
+			if (gridTiles[indexX, indexY].occupiedUnit == null && gridTiles[indexX, indexY].isWalkeable)
+			{
+				tile = gridTiles[indexX, indexY];
+				break;
+			}
+		}
+		return tile;
+	}
+
+	public Tile GetFlagHumanSpawnTile()
+	{
+		var tile = new Tile();
+		int indexX = 0;
+		int indexY = 0;
+
+		while (true)
+		{
+
+			indexX = Random.Range(0, gridSizeX / 4);
+			indexY = Random.Range(0, gridSizeY - 1);
+
+			if (gridTiles[indexX, indexY].occupiedUnit == null && gridTiles[indexX, indexY].isWalkeable)
+			{
+				tile = gridTiles[indexX, indexY];
+				break;
+			}
+		}
+		return tile;
+	}
 	public Tile GetDefensiveAISpawnTile(string unit)
 	{
 		var tile = new Tile();

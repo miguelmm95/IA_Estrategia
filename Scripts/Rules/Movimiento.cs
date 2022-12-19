@@ -19,7 +19,7 @@ public static class Movimiento
                 Grid.Instance.GetNearFlagHuman(unit);
             }
 
-            if (unit._flagToAttack.CheckUnit(unit))
+            if (unit._flagToAttack != null && unit._flagToAttack.CheckUnit(unit))
             {
                 unit._flagToAttack.unitAIAttackinHumanFlag.Add(unit);
                 if (unit.turnsInFlag == 0)
@@ -41,6 +41,11 @@ public static class Movimiento
                         unit1._flagToAttack = null;
                     }
                     _bandera.unitAIAttackinHumanFlag.Clear();
+                   
+                    if (UnitManager._playerFlags.Count == 0)
+                    {
+                        GameManager.Instance.UpdateGameState(GameState.Lose);
+                    }
                 }
                 TurnManager.contador++;
                 unit.state = State.AIMoved;
@@ -48,6 +53,7 @@ public static class Movimiento
 
             else
             {
+                
                 objectiveTile = unit.moveTo(Grid.Instance.GetNeighboursUnit(unit.occupiedTile, unit.getRange(unit.type)), unit._flagToAttack.flagPosition);
 
                 lastTile.occupiedUnit = null;

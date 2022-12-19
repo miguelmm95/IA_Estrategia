@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class TurnManager : MonoBehaviour
 {
@@ -36,17 +37,18 @@ public class TurnManager : MonoBehaviour
     }
     public void EndPlayerTurn()
     {
-        foreach (Flag flag in UnitManager._AIFlags)
-        {
-            if (!flag.beingAttacked)
+     
+            foreach (Flag flag in UnitManager._AIFlags)
             {
-                flag.CheckUnitHumanInFlagAI();
+                if (!flag.beingAttacked)
+                {
+                    flag.CheckUnitHumanInFlagAI();
+                }
             }
-        }
-        UnitManager.Instance.RestartAIUnits();
-        _inGameUI.SetActive(false);
-        GameManager.Instance.UpdateGameState(GameState.AITurn);
-        //UnitManager.Instance.ActiveAIUnits();
+            UnitManager.Instance.RestartAIUnits();
+            _inGameUI.SetActive(false);
+            GameManager.Instance.UpdateGameState(GameState.AITurn);
+            //UnitManager.Instance.ActiveAIUnits();
 
 
     }

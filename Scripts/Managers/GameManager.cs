@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
@@ -10,6 +12,8 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
     public GameState State;
     public static event Action<GameState> onGameStateChanged;
+    public TextMeshProUGUI win;
+    public TextMeshProUGUI lose;
 
     void Awake()
     {
@@ -46,9 +50,17 @@ public class GameManager : MonoBehaviour
                 HandleAITurn();
                 break;
             case GameState.Victory:
+                UnitManager._AIUnits.Clear();
+                UnitManager._AIUnitsObjects.Clear();
+                UnitManager._humanUnitsObjects.Clear();
+                UnitManager._playerUnits.Clear();
                 HandleVictory();
                 break;
             case GameState.Lose:
+                UnitManager._AIUnits.Clear();
+                UnitManager._AIUnitsObjects.Clear();
+                UnitManager._humanUnitsObjects.Clear();
+                UnitManager._playerUnits.Clear();
                 HandleLose();
                 break;
             default:
@@ -58,14 +70,19 @@ public class GameManager : MonoBehaviour
         onGameStateChanged?.Invoke(newState);
     }
 
-    private void HandleLose()
+    private async void HandleLose()
     {
-        
+        lose.gameObject.SetActive(true);
+        await Task.Delay(3567);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
-    private void HandleVictory()
+    private async void HandleVictory()
     {
         
+        win.gameObject.SetActive(true);
+        await Task.Delay(3568);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     private void HandleAITurn()
