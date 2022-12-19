@@ -7,7 +7,9 @@ public class Flag : MonoBehaviour
     [HideInInspector] public List<Tile> neighbours;
     public Tile flagPosition;
     public bool beingAttacked;
-    public List<BaseAIUnit> unitAttackingFlag;
+    public List<BaseHumanUnit> unitHumanAttackingAIFlag;
+    public List<BaseAIUnit> unitAIDefendingFlag;
+    public List<BaseAIUnit> unitAIAttackinHumanFlag;
     private int turno;
 
     private void Start()
@@ -24,6 +26,11 @@ public class Flag : MonoBehaviour
             {
                 if (tile.occupiedUnit!= null && tile.occupiedUnit.player == Player.Human)
                 {
+                    if (!unitHumanAttackingAIFlag.Contains((BaseHumanUnit)tile.occupiedUnit))
+                    {
+                        unitHumanAttackingAIFlag.Add((BaseHumanUnit)tile.occupiedUnit);
+                    }
+
                     if (turno == 0)
                     {
                         turno = TurnManager.turnCounter;
@@ -33,6 +40,14 @@ public class Flag : MonoBehaviour
                         UnitManager._AIFlags.Remove(this);
                         ChangeFlagHuman();
                         UnitManager._playerFlags.Add(this);
+                        unitHumanAttackingAIFlag.Clear();
+                        foreach(BaseAIUnit unit in unitAIDefendingFlag)
+                        {
+                            unit.turnsInFlag = 0;
+                            unit._flagToDefend = null;
+                            unit.state = State.AIMoving;
+                        }
+                        unitAIDefendingFlag.Clear();
                         turno = 0;
                     }
                 }
@@ -68,6 +83,7 @@ public class Flag : MonoBehaviour
     {
         this.gameObject.GetComponent<SpriteRenderer>().color = Color.blue;
         this.gameObject.tag = "Bandera_Jugador";
+        beingAttacked = false;
     }
 
     public void ChangeFlagAI()

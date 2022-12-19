@@ -2,14 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Ataque : MonoBehaviour
+public static class Ataque
 {
-    public static Ataque Instance;
-    private void Awake()
-    {
-        Instance = this;
-    }
-    public void AtaqueAI(BaseAIUnit unit)
+
+    public static void AtaqueAI(BaseAIUnit unit)
     {
         if (unit.state == State.AIMoved || unit.state == State.AIDefending)
         {
@@ -21,13 +17,13 @@ public class Ataque : MonoBehaviour
 
                 if (tile.occupiedUnit != null && tile.occupiedUnit.player == Player.Human)
                 {
-                    Debug.Log("UNIDAD ENCONTRADA");
+                    /*Debug.Log("UNIDAD ENCONTRADA");
 
                     Debug.Log("Soy" + unit.name + " en " + unit.occupiedTile.name + " y voy a atacar a " + tile.occupiedUnit + " en " + tile.name);
                     unit._playerTarget = (BaseHumanUnit)tile.occupiedUnit;
-                    unit.state = State.AIAttacking;
+                    unit.state = State.AIAttacking;*/
 
-                    /*if (unitType == Type.Heavy && tile.occupiedUnit.type == Type.Ranged)
+                    if (unitType == Type.Heavy && tile.occupiedUnit.type == Type.Ranged)
                     {
                         Debug.Log("Soy" + unit.name + " en " + unit.occupiedTile.name + " y voy a atacar a " + tile.occupiedUnit + " en " + tile.name);
                         unit._playerTarget = (BaseHumanUnit)tile.occupiedUnit;
@@ -46,8 +42,7 @@ public class Ataque : MonoBehaviour
                         Debug.Log("Soy" + unit.name + " en " + unit.occupiedTile.name + " y voy a atacar a " + tile.occupiedUnit + " en " + tile.name);
                         unit._playerTarget = (BaseHumanUnit)tile.occupiedUnit;
                         unit.state = State.AIAttacking;
-
-                    }*/
+                    }
                 }
             }
             if (unit.state == State.AIAttacking)
@@ -59,6 +54,11 @@ public class Ataque : MonoBehaviour
                 {
                     unit._playerTarget = null;
                 }
+                TurnManager.contador++;
+            }
+            else
+            {
+                unit.state = State.AIWaiting;
                 TurnManager.contador++;
             }
         }

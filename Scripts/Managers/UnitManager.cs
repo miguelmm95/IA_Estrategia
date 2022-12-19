@@ -127,7 +127,7 @@ public class UnitManager : MonoBehaviour
                     break;
             }
         }
-        GameManager.Instance.UpdateGameState(GameState.PlayerTurn);
+        GameManager.Instance.UpdateGameState(GameState.UnitPlacement);
         _inGameUI.SetActive(true);
         menuManager.GetComponent<TurnManager>().SearchUI();
     }

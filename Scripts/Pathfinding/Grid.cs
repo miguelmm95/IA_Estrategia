@@ -30,7 +30,7 @@ public class Grid : MonoBehaviour {
 	private int contBanJug = 0;
 
 	float nodeDiameter;
-	int gridSizeX, gridSizeY;
+	public static int gridSizeX, gridSizeY;
 
 	int penaltyMin = int.MaxValue;
 	int penaltyMax = int.MinValue;
@@ -248,7 +248,9 @@ public class Grid : MonoBehaviour {
 				}
 			}
 			_unit.state = State.AIRetire;
+			flag.unitAIDefendingFlag.Add(_unit);
 			_unit._flagToDefend = flag;
+			_unit._flagToAttack = null;
 			cont++;
 		}
 	}
@@ -273,7 +275,7 @@ public class Grid : MonoBehaviour {
                 }
             }
             unit._flagToAttack = _flag;
-			_flag.unitAttackingFlag.Add(unit);
+			_flag.unitAIAttackinHumanFlag.Add(unit);
             cont++;
         }
     }

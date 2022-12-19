@@ -96,7 +96,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8184171559185275754}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
@@ -186,3 +186,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d408d419cf3743047801885080c8669c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isDefending: 0
+  turn: 0

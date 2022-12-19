@@ -13,7 +13,7 @@ public class TurnManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-        turnCounter = 1;
+        turnCounter = 0;
     }
 
     private void Update()
@@ -38,7 +38,10 @@ public class TurnManager : MonoBehaviour
     {
         foreach (Flag flag in UnitManager._AIFlags)
         {
-            flag.CheckUnitHumanInFlagAI();
+            if (!flag.beingAttacked)
+            {
+                flag.CheckUnitHumanInFlagAI();
+            }
         }
         UnitManager.Instance.RestartAIUnits();
         _inGameUI.SetActive(false);

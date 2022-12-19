@@ -24,23 +24,23 @@ public class BaseAIUnit : BaseUnit
             case (Type.Heavy):
                 movementRange = 1;
                 attackRange = 1;
-                totalHealth = 200;
+                totalHealth = 30;
                 actualHealth = totalHealth;
-                damage = 10;
+                damage = 5;
                 break;
             case (Type.Ranged):
                 movementRange = 3;
                 attackRange = 3;
-                totalHealth = 75;
+                totalHealth = 15;
                 actualHealth = totalHealth;
                 damage = 10;
                 break;
             default:
                 movementRange = 2;
                 attackRange = 1;
-                totalHealth = 100;
+                totalHealth = 20;
                 actualHealth = totalHealth;
-                damage = 20;
+                damage = 15;
                 break;
         }
 

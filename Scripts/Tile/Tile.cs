@@ -60,52 +60,56 @@ public class Tile : MonoBehaviour
         if (GameManager.Instance.State == GameState.UnitPlacement)
         {
             contadorListaUnidades = UnitManager._playerUnits.Count;
-            switch (DisplayUnit.SelectedUnit)
+            if(posX < Grid.gridSizeX / 2)
             {
-                case "melee":
-                    if (UnitManager._playerUnits.Contains("melee") && this.isWalkeable)
-                    {
+                switch (DisplayUnit.SelectedUnit)
+                {
+                    case "melee":
+                        if (UnitManager._playerUnits.Contains("melee") && this.isWalkeable)
+                        {
 
-                        var unit =Instantiate(Melee, new Vector3(this.transform.position.x, this.transform.position.y, 0), Quaternion.identity);
-                        UnitManager._playerUnits.Remove("melee");
-                        UnitManager._humanUnitsObjects.Add((BaseHumanUnit)unit);
-                        this.occupiedUnit = unit;
-                        unit.occupiedTile = this;
-                        unit.state = State.humanUnselected;
+                            var unit = Instantiate(Melee, new Vector3(this.transform.position.x, this.transform.position.y, 0), Quaternion.identity);
+                            UnitManager._playerUnits.Remove("melee");
+                            UnitManager._humanUnitsObjects.Add((BaseHumanUnit)unit);
+                            this.occupiedUnit = unit;
+                            unit.occupiedTile = this;
+                            unit.state = State.humanUnselected;
 
-                    }
-                    break;
-                case "tank":
-                    if (UnitManager._playerUnits.Contains("tank") && this.isWalkeable)
-                    {
-                        var unit = Instantiate(Tank, new Vector3(this.transform.position.x, this.transform.position.y, 0), Quaternion.identity);
-                        UnitManager._humanUnitsObjects.Add((BaseHumanUnit)unit);
-                        UnitManager._playerUnits.Remove("tank");
-                        this.occupiedUnit = unit;
-                        unit.occupiedTile = this;
-                        unit.state = State.humanUnselected;
+                        }
+                        break;
+                    case "tank":
+                        if (UnitManager._playerUnits.Contains("tank") && this.isWalkeable)
+                        {
+                            var unit = Instantiate(Tank, new Vector3(this.transform.position.x, this.transform.position.y, 0), Quaternion.identity);
+                            UnitManager._humanUnitsObjects.Add((BaseHumanUnit)unit);
+                            UnitManager._playerUnits.Remove("tank");
+                            this.occupiedUnit = unit;
+                            unit.occupiedTile = this;
+                            unit.state = State.humanUnselected;
 
-                    }
-                    break;
-                case "ranged":
-                    if (UnitManager._playerUnits.Contains("ranged") && this.isWalkeable)
-                    {
-                        var unit =Instantiate(Ranged, new Vector3(this.transform.position.x, this.transform.position.y, 0), Quaternion.identity);
-                        UnitManager._humanUnitsObjects.Add((BaseHumanUnit)unit);
-                        UnitManager._playerUnits.Remove("ranged");
-                        this.occupiedUnit = unit;
-                        unit.occupiedTile = this;
-                        unit.state = State.humanUnselected;
+                        }
+                        break;
+                    case "ranged":
+                        if (UnitManager._playerUnits.Contains("ranged") && this.isWalkeable)
+                        {
+                            var unit = Instantiate(Ranged, new Vector3(this.transform.position.x, this.transform.position.y, 0), Quaternion.identity);
+                            UnitManager._humanUnitsObjects.Add((BaseHumanUnit)unit);
+                            UnitManager._playerUnits.Remove("ranged");
+                            this.occupiedUnit = unit;
+                            unit.occupiedTile = this;
+                            unit.state = State.humanUnselected;
 
-                    }
-                    break;
-                default:
-                    break;
+                        }
+                        break;
+                    default:
+                        break;
+                }
+                if (UnitManager.contadorUnidades == UnitManager._humanUnitsObjects.Count)
+                {
+                    GameManager.Instance.UpdateGameState(GameState.PlayerTurn);
+                }
             }
-            if (UnitManager.contadorUnidades == UnitManager._humanUnitsObjects.Count)
-            {
-                GameManager.Instance.UpdateGameState(GameState.PlayerTurn);
-            }
+            
         }
         if (GameManager.Instance.State != GameState.PlayerTurn) return;
         if (occupiedUnit != null){

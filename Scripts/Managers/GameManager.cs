@@ -37,7 +37,7 @@ public class GameManager : MonoBehaviour
 
                 break;
             case GameState.SpawnAIUnits:
-                UnitManager.Instance.SpawnAIUnitsDefensive();
+                UnitManager.Instance.SpawnAIUnitsAggressive();
                 break;
             case GameState.PlayerTurn:
                 HandlePlayerTurn();

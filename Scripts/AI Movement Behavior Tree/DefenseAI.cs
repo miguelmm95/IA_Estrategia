@@ -6,7 +6,7 @@ using BehaviorTree;
 
 public class DefenseAI : NodeBT
 {
-    public bool isDefending = false;
+     bool isDefending = false;
     public DefenseAI(BaseAIUnit unit)
     {
         Tile objectiveTile = null;

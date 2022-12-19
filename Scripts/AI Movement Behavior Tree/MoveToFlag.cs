@@ -6,7 +6,7 @@ using BehaviorTree;
 
 public class MoveToFlag : NodeBT
 {
-    private int totalUnits = 0;
+    /*private int totalUnits = 0;
     private int movedUnits = 0;
     private int turn;
 
@@ -38,7 +38,7 @@ public class MoveToFlag : NodeBT
                     UnitManager._playerFlags.Remove(unit._flagToAttack);
                     unit._flagToAttack.ChangeFlagAI();
                     UnitManager._AIFlags.Add(unit._flagToAttack);
-                    foreach (BaseAIUnit unit1 in unit._flagToAttack.unitAttackingFlag)
+                    foreach (BaseAIUnit unit1 in unit._flagToAttack.unitHumanAttackingAIFlag)
                     {
                         unit1.turnsInFlag = 0;
                         unit1._flagToAttack = null;
@@ -76,5 +76,5 @@ public class MoveToFlag : NodeBT
         Debug.Log("No estoy moviendome");
         state = NodeBTState.FAILURE;
         return state;
-    }
+    }*/
 }
