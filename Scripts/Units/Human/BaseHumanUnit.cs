@@ -8,6 +8,7 @@ public class BaseHumanUnit : BaseUnit
 
     public int movementRange, attackRange;
     public float totalHealth, actualHealth, damage;
+    private GameObject shop;
 
     private void Awake()
     {
@@ -35,11 +36,17 @@ public class BaseHumanUnit : BaseUnit
                 damage = 20;
                 break;
         }
+        shop = GameObject.FindGameObjectWithTag("shop");
     }
 
     public void getDamage(float damage)
     {
         actualHealth -= damage;
+        if(actualHealth >= 0)
+        {
+            shop.GetComponent<ShopManager>().GainMoney(5f);
+        }
+        shop.GetComponent<ShopManager>().GainMoney(5f);
     }
 
     public void Attack(float damage, BaseAIUnit unit)

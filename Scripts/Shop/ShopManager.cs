@@ -13,7 +13,7 @@ public class ShopManager : MonoBehaviour
 
     public int[,] Items = new int[6, 6];
     public string[] ItemNames = new string[6];
-    public float Money;
+    private float Money = 10;
     public TMP_Text MoneyTxt;
     public TMP_Text ElementQ;
     int tempID;
@@ -130,5 +130,11 @@ public class ShopManager : MonoBehaviour
                     break;
             }
         }
+    }
+
+    public void GainMoney(float _money)
+    {
+        Money += _money;
+        MoneyTxt.text = "Money: " + Money.ToString();
     }
 }

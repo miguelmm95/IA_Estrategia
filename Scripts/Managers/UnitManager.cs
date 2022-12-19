@@ -33,6 +33,8 @@ public class UnitManager : MonoBehaviour
 
     public static int contadorUnidades;
 
+    private bool Started = false;
+
     private void Awake()
     {
         Instance = this;
@@ -131,8 +133,12 @@ public class UnitManager : MonoBehaviour
                     break;
             }
         }
-        SpawnAIFlag();
-        SpawnHumanFlag();
+        if (!Started)
+        {
+            SpawnAIFlag();
+            SpawnHumanFlag();
+            Started = true;
+        }
         GameManager.Instance.UpdateGameState(GameState.UnitPlacement);
         _inGameUI.SetActive(true);
         menuManager.GetComponent<TurnManager>().SearchUI();

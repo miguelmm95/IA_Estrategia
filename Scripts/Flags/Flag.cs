@@ -11,11 +11,13 @@ public class Flag : MonoBehaviour
     public List<BaseAIUnit> unitAIDefendingFlag;
     public List<BaseAIUnit> unitAIAttackinHumanFlag;
     private int turno;
+    private GameObject shop;
 
     private void Start()
     {
         neighbours = Grid.Instance.GetNeighboursUnit(flagPosition);
         turno = 0;
+        shop = GameObject.FindGameObjectWithTag("shop");
     }
 
     private void Update()
@@ -53,7 +55,9 @@ public class Flag : MonoBehaviour
                         {
                             GameManager.Instance.UpdateGameState(GameState.Victory);
                         }
+                        shop.GetComponent<ShopManager>().GainMoney(8f);
                     }
+                    shop.GetComponent<ShopManager>().GainMoney(7f);
                 }
             }
         }
